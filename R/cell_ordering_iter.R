@@ -1,4 +1,4 @@
-cell_reordering_iter <- function(cycle_data, celltime_levels, cell_times_iter, fix.phase=FALSE, phase_in=NULL)
+cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter, fix.phase=FALSE, phase_in=NULL)
 {
   if(fix.phase==TRUE & is.null(phase_in))
     stop("fix.phase=TRUE and phase not provided")
@@ -93,6 +93,6 @@ cell_reordering_iter <- function(cycle_data, celltime_levels, cell_times_iter, f
     return(out)
   }))];
 
-  out <- list("cell_times_iter"=cell_times, "amp_iter"=amp, "phi_iter"=phi, "sigma_iter"=sigma, "signal_intensity"=signal_intensity_per_class);
+  out <- list("cell_times_iter"=cell_times, "amp_iter"=amp, "phi_iter"=phi, "sigma_iter"=sigma, "signal_intensity_iter"=signal_intensity_per_class);
   return(out)
 }
