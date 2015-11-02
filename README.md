@@ -7,13 +7,13 @@ To install the package, follow the commands below
 ```
 install.packages("devtools")
 library(devtools)
-install_github('kkdey/cellcycler')
+install_github('kkdey/cellcycleR')
 ```
 
 To load the package
 
 ```
-library(cellcycler)
+library(cellcycleR)
 ```
 For the main workhorse function, the cell ordering based on classes, check
 
