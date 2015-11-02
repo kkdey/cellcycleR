@@ -27,7 +27,7 @@
 #' cell_times_sim <- sample(seq(0,2*pi, 2*pi/(num_cells-1)), num_cells, replace=FALSE);
 #' cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes, sigma_genes, cell_times_sim);
 #' celltime_levels <- 100;
-#' out <- cell_reordering_phase(cycle_data, celltime_levels = 100, num_iter=100)
+#' out <- cell_reordering_class(cycle_data, celltime_levels = 100, num_iter=100)
 
 
 
