@@ -1,6 +1,6 @@
-# cellcycler
+# cellcycleR
 
-cellcycler is a R package for cell cycle phasing and analysis
+cellcycleR is a R package for cell cycle phasing and analysis
 
 To install the package, follow the commands below 
 

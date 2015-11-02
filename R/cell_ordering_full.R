@@ -21,7 +21,6 @@
 #' cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes, sigma_genes, cell_times_sim);
 #' celltime_levels <- 100;
 #' out <- cell_reordering_phase(cycle_data, celltime_levels = 100, num_iter=100)
-#' out <- cell_reordering_phase(cycle_data, celltime_levels = 100, num_iter=100)
 #' signal_intensity <- out$signal_intensity;
 #' cell_ordering_full(signal_intensity, G);
 
