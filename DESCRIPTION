@@ -1,4 +1,4 @@
-Package: cellcycler
+Package: cellcycleR
 Type: Package
 Title: For ordering the single cells on the cell cycle
 Version: 0.1.0

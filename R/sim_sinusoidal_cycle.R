@@ -6,7 +6,7 @@
 #' @param amp_genes The amplitude vector of the sinusoidal genes (of length equal to num_genes)
 #' @param phi_genes The phase angle vector of the sinusoidal genes (of length equal to num_genes)
 #' @param sigma_genes The noise variation vector of the sinusoidal genes (of length equal to num_genes)
-#' @param cell_times The phases of the cellson the cell cycle (a vector of values between 0 to 2\pi degrees)
+#' @param cell_times The phases of the cellson the cell cycle (a vector of values between 0 to 2 \code{pi} degrees)
 #'        The length of cell_times corresponds to number of single cells considered for simulation (say N).
 #'
 #'
