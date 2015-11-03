@@ -45,4 +45,24 @@ The full order of the cells can then be obtained by
 cell_ordering_full(out$signal_intensity, G);
 ```
 
+To check for performance, we compare the estimated and the true gene features
+
+```
+plot(amp_genes, out$amp, col="red",xlab="true amplitudes", ylab="est amplitudes", main="amplitudes est, comparison")
+plot(sigma_genes, out$sigma, col="red",xlab="true sigma", ylab="est sigma", main="sigma(variation) est, comparison")
+plot(phi_genes, out$phi, col="red",xlab="true phi", ylab="est phi", main="phase est, comparison");
+
+```
+
+The radial plots of estimated cell times versus the true cell times (one should be a rotation of the other preserving relative distances) 
+
+```
+library(plotrix)
+library(RColorBrewer)
+radial.plot(lengths=1:length(out$cell_times),radial.pos=out$cell_times[order(cell_times_sim)], 
+            line.col=colorRampPalette(brewer.pal(9,"Blues"))(length(out$cell_times)), lwd=2)
+radial.plot(lengths=1:length(cell_times_sim),radial.pos=sort(cell_times_sim), 
+            line.col=colorRampPalette(brewer.pal(9,"Blues"))(length(cell_times_sim)), lwd=2)
+```
+
 
