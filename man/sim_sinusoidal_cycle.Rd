@@ -15,7 +15,7 @@ sim_sinusoidal_cycle(num_genes, amp_genes, phi_genes, sigma_genes, cell_times)
 
 \item{sigma_genes}{The noise variation vector of the sinusoidal genes (of length equal to num_genes)}
 
-\item{cell_times}{The phases of the cellson the cell cycle (a vector of values between 0 to 2 \code{pi} degrees)
+\item{cell_times}{The phases of the cellson the cell cycle (a vector of values between 0 to 2 pi degrees)
 The length of cell_times corresponds to number of single cells considered for simulation (say N).}
 }
 \value{
