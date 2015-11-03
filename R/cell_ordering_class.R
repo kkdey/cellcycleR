@@ -52,7 +52,7 @@ cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, save_path
 
   for(iter in 1:num_iter)
   {
-    fun <- cell_reordering_iter(cycle_data, celltime_levels, cell_times_iter, fix.phase, phase_in);
+    fun <- cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter, fix.phase, phase_in);
     cell_times_iter <- fun$cell_times_iter;
     amp_iter <- fun$amp_iter;
     phi_iter <- fun$phi_iter;
