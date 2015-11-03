@@ -17,6 +17,7 @@ cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes, sigma_genes, cell_ti
 
 celltime_levels <- 100;
 
+library(parallel)
 out <- cell_ordering_class(cycle_data, celltime_levels = 100, num_iter=100)
 
 

@@ -67,7 +67,7 @@ cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, save_path
               "phi"=phi_iter,
               "sigma"=sigma_iter,
               "loglik"=loglik_iter,
-              "signal_intensity"=signal_intensity)
+              "signal_intensity"=signal_intensity_iter)
 
   if(!is.null(save_path)){
     save(out,file=save_path);
