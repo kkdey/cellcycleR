@@ -65,4 +65,6 @@ radial.plot(lengths=1:length(cell_times_sim),radial.pos=sort(cell_times_sim),
             line.col=colorRampPalette(brewer.pal(9,"Blues"))(length(cell_times_sim)), lwd=2)
 ```
 
+For further details on the package, along with any questions or queries, contact me at [kkdey@uchicago.edu](kkdey@uchicago.edu)
+
 
