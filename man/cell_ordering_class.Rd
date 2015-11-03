@@ -23,9 +23,18 @@ Default is NULL as is the case if fix.phase=FALSE.}
 \item{celltime_levels:}{The number of phase classes chosen (The deafult is 100). It splits up
 circle or the range (0, 2pi) into celltime_levels uniform splits.}
 }
+\value{
+Returns a list containing the following items
+ \item{cell_times}{estimated cell times from Gibbs sampler}
+ \item{amp}{The estimated amplitudes of the genes}
+ \item{phi}{The estimated phase angles of the genes}
+ \item{sigma}{The estimated non sinusoid signal variation of the genes}
+ \item{loglik}{The model log likelihood of the fit}
+ \item{signal_intensity}{The intensity of each cell in each of the cell times classes}
+}
 \description{
 The function runs a Gibbs sampler for a number of iterations to obtain the estimates
-             of cell times on cell cycle (modulo rotation) as well as the gene features (amplitude,
+            of cell times on cell cycle (modulo rotation) as well as the gene features (amplitude,
              phase and noise variation)
 }
 \examples{
@@ -38,7 +47,7 @@ sigma_genes <- rchisq(G, 4);
 cell_times_sim <- sample(seq(0,2*pi, 2*pi/(num_cells-1)), num_cells, replace=FALSE);
 cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes, sigma_genes, cell_times_sim);
 celltime_levels <- 100;
-out <- cell_reordering_phase(cycle_data, celltime_levels = 100, num_iter=100)
+out <- cell_reordering_class(cycle_data, celltime_levels = 100, num_iter=100)
 }
 \author{
 Kushal K Dey

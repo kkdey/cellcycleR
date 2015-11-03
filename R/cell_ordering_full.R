@@ -8,6 +8,9 @@
 #'              more continuous ordering of the cells based on the signal intensity of the cells in the
 #'              different cell time classes as in the cell_phase_ordering function.
 #'
+#' @return  Returns the full cell relative ordering of the cells on the
+#'          cell cycle.
+#'
 #' @author  Kushal K Dey
 #' @export
 #' @examples

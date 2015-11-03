@@ -12,6 +12,10 @@ cell_ordering_full(signal_intensity, num_genes)
 \item{signal_intensity:}{The signal intensity for the cells across time classes (N x T) matrix,
 where T represents the number of time classes (equal to celltime_levels)}
 }
+\value{
+Returns the full cell relative ordering of the cells on the
+         cell cycle.
+}
 \description{
 The function takes the output from the cell_phase_ordering function and provides a
              more continuous ordering of the cells based on the signal intensity of the cells in the
@@ -27,7 +31,6 @@ sigma_genes <- rchisq(G, 4);
 cell_times_sim <- sample(seq(0,2*pi, 2*pi/(num_cells-1)), num_cells, replace=FALSE);
 cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes, sigma_genes, cell_times_sim);
 celltime_levels <- 100;
-out <- cell_reordering_phase(cycle_data, celltime_levels = 100, num_iter=100)
 out <- cell_reordering_phase(cycle_data, celltime_levels = 100, num_iter=100)
 signal_intensity <- out$signal_intensity;
 cell_ordering_full(signal_intensity, G);

@@ -1,14 +1,17 @@
 #' @title Simulate sinusoidal gene expression along cell phases on cell cycle
 #'
+#'@description The function simulates sinusoidal gene patterns over a cell cycle with the cell phases
+#'              provided by the user.
 #' @param num_genes The number of sinusoidal genes to simulate
 #' @param amp_genes The amplitude vector of the sinusoidal genes (of length equal to num_genes)
 #' @param phi_genes The phase angle vector of the sinusoidal genes (of length equal to num_genes)
 #' @param sigma_genes The noise variation vector of the sinusoidal genes (of length equal to num_genes)
-#' @param cell_times The phases of the cells on the cell cycle (a vector of values between 0 to 2\pi degrees)
-#'        The length of cell_times corresponds to number of single cells considered for simulation.
-#' @description The function simulates sinusoidal gene patterns over a cell cycle with the cell phases
-#'              provided by the user.
+#' @param cell_times The phases of the cellson the cell cycle (a vector of values between 0 to 2\pi degrees)
+#'        The length of cell_times corresponds to number of single cells considered for simulation (say N).
 #'
+#'
+#' @return It returns a matrix of size N x num_genes, of sinusoidal gene expression patterns
+#'         across the cells.
 #' @author  Kushal K Dey
 #' @export
 #' @examples

@@ -1,6 +1,10 @@
 
 #' @title Cell ordering into different phases on the cell cycle
 #'
+#' @description The function runs a Gibbs sampler for a number of iterations to obtain the estimates
+#'             of cell times on cell cycle (modulo rotation) as well as the gene features (amplitude,
+#'              phase and noise variation)
+#'
 #' @param cycle_data: a N x G matrix, where N is number of cells, G number of genes
 #' @param celltime_levels:  The number of phase classes chosen (The deafult is 100). It splits up
 #'                          circle or the range (0, 2pi) into celltime_levels uniform splits.
@@ -10,10 +14,13 @@
 #' @param fix.phase if TRUE, the phase will be fixed in inference for the genes, default is FALSE
 #' @param phase_in if fix.phase is TRUE, then phase_in is G x 1 vector of user input gene phases.
 #'        Default is NULL as is the case if fix.phase=FALSE.
-#'
-#' @description The function runs a Gibbs sampler for a number of iterations to obtain the estimates
-#'              of cell times on cell cycle (modulo rotation) as well as the gene features (amplitude,
-#'              phase and noise variation)
+#' @return Returns a list containing the following items
+#'  \item{cell_times}{estimated cell times from Gibbs sampler}
+#'  \item{amp}{The estimated amplitudes of the genes}
+#'  \item{phi}{The estimated phase angles of the genes}
+#'  \item{sigma}{The estimated non sinusoid signal variation of the genes}
+#'  \item{loglik}{The model log likelihood of the fit}
+#'  \item{signal_intensity}{The intensity of each cell in each of the cell times classes}
 #'
 #' @author  Kushal K Dey
 #' @export
