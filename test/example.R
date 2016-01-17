@@ -1,6 +1,5 @@
 
-
-## Testing the package cellcycler
+## Testing the package cellcycleR
 
 library(devtools)
 install_github('kkdey/cellcycleR')

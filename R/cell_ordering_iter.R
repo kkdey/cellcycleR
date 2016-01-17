@@ -32,7 +32,8 @@ cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter, fix
                                   out_amp <- sqrt(beta1^2 + beta2^2);
                                   out_phi <- atan3(as.numeric(beta2), as.numeric(beta1));
                                   ll <- list("out_amp"=out_amp, "out_phi"=out_phi, "out_sigma"=out_sigma)
-                                }, mc.cores=detectCores())
+                                  return(ll)
+                                }, mc.cores=parallel::detectCores())
 
     amp <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_amp))));
     phi <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_phi))));
@@ -48,6 +49,7 @@ cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter, fix
                               out_amp <- abs(fit$coefficients[1]);
                               out_phi <- phi;
                               ll <- list("out_amp"=out_amp, "out_phi"=out_phi, "out_sigma"=out_sigma)
+                              return(ll)
                           }, mc.cores=detectCores())
 
     amp <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_amp))));
