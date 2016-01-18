@@ -33,12 +33,9 @@
 #' cell_times_sim <- sample(seq(0,2*pi, 2*pi/(num_cells-1)), num_cells, replace=FALSE);
 #' cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes, sigma_genes, cell_times_sim);
 #' celltime_levels <- 100;
-#' out <- cell_ordering_class(cycle_data, celltime_levels = 100, num_iter=100)
+#' out <- sin_cell_ordering_class(cycle_data, celltime_levels = 100, num_iter=100)
 
-
-
-
-cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, save_path=NULL,
+sin_cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, save_path=NULL,
                                   fix.phase=FALSE, phase_in=NULL)
 {
   G <- dim(cycle_data)[2];
@@ -51,7 +48,7 @@ cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, save_path
 
   for(iter in 1:num_iter)
   {
-    fun <- cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter, fix.phase, phase_in);
+    fun <- sin_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter, fix.phase, phase_in);
     cell_times_iter <- fun$cell_times_iter;
     amp_iter <- fun$amp_iter;
     phi_iter <- fun$phi_iter;

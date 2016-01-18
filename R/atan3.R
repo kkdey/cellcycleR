@@ -9,9 +9,8 @@
 #' @author  Kushal K Dey
 #' @export
 #' @examples
-#'  atan(4,1)
-#'  atan(2,3)
-#'  atan(0,0)
+#'  atan3(4,1)
+#'  atan3(2,3)
 #'
 
 atan3 <- function(beta2, beta1)

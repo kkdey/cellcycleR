@@ -1,4 +1,4 @@
-cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter, fix.phase=FALSE, phase_in=NULL)
+sin_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter, fix.phase=FALSE, phase_in=NULL)
 {
   if(fix.phase==TRUE & is.null(phase_in))
     stop("fix.phase=TRUE and phase not provided")
@@ -50,7 +50,7 @@ cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter, fix
                               out_phi <- phi;
                               ll <- list("out_amp"=out_amp, "out_phi"=out_phi, "out_sigma"=out_sigma)
                               return(ll)
-                          }, mc.cores=detectCores())
+                          }, mc.cores=parallel::detectCores())
 
     amp <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_amp))));
     phi <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_phi))));
@@ -69,14 +69,14 @@ cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter, fix
   options(digits=12)
   signal_intensity_per_class <- matrix(0, numcells, num_celltime_class)
 
-  signal_intensity_per_class <- do.call(rbind,mclapply(1:numcells, function(cell)
+  signal_intensity_per_class <- do.call(rbind,parallel::mclapply(1:numcells, function(cell)
   {
     res_error <- sweep(sinu_signal,2,cycle_data[cell,]);
     res_error_adjusted <- -(res_error^2);
     res_error_adjusted <- sweep(res_error_adjusted, 2, 2*sigma^2, '/');
     out <- rowSums(sweep(res_error_adjusted,2,log(sigma)) - 0.5*log(2*pi));
     return(out)
-  }, mc.cores=detectCores()));
+  }, mc.cores=parallel::detectCores()));
 
 
   signal_intensity_class_exp <- do.call(rbind,lapply(1:dim(signal_intensity_per_class)[1], function(x)

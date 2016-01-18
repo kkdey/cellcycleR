@@ -16,9 +16,8 @@ The function computes the tan inverse of ratio of two numbers and maps it to the
              from 0 to 2pi. A wrapper function for the atan function in R
 }
 \examples{
- atan(4,1)
- atan(2,3)
- atan(0,0)
+ atan3(4,1)
+ atan3(2,3)
 
 }
 \author{
