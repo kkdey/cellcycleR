@@ -27,7 +27,7 @@ plot(cycle_data_reorder[,60], type="l")
 
 ###  B-spline smoothing
 
-system.time(out <- np_cell_ordering_class(cycle_data_reorder, celltime_levels = 128, num_iter=100, method="B-spline"))
+system.time(out <- np_cell_ordering_class(cycle_data_reorder, celltime_levels = 128, num_iter=300, method="B-spline"))
 
 
 ###### Post processing
@@ -98,7 +98,7 @@ plot(cycle_data[,80],type="l")
 
 ### Sinusoidal smoothing
 
-system.time(out <- sin_cell_ordering_class(cycle_data_reorder, celltime_levels = 100, num_iter=100))
+system.time(out <- sin_cell_ordering_class(cycle_data_reorder, celltime_levels = 100, num_iter=300))
 
 library(plotrix)
 library(RColorBrewer)
