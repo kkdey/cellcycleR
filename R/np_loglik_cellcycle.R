@@ -35,7 +35,7 @@ np_loglik_cellcycle <- function(cycle_data, cell_times, fit, sigma)
 
   for(s in 1:numcells)
   {
-    ind <- which(cell_times[s]==celltime_levels);
+    ind <- which(cell_times[s]==cell_times_class);
     sum <- sum + sum(mapply(dnorm, cycle_data[s,],fit[ind,], sigma, log=TRUE));
   }
 
