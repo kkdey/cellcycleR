@@ -1,8 +1,7 @@
-#' @title Cell ordering into different phases on the cell cycle
+#' @title Nonparametric cell ordering into different phases on the cell cycle
 #'
 #' @description The function runs a Gibbs sampler for a number of iterations to obtain the estimates
-#'             of cell times on cell cycle (modulo rotation) as well as the gene features (amplitude,
-#'              phase and noise variation)
+#'             of cell times on cell cycle (modulo rotation) as well as the gene features (smoothing fit)
 #'
 #' @param cycle_data: a N x G matrix, where N is number of cells, G number of genes
 #' @param celltime_levels:  The number of phase classes chosen (The deafult is 100). It splits up
@@ -10,14 +9,9 @@
 #' @param num_iter The number of iterations to run for the Gibbs sampler scheme
 #' @param save_path The file path to save the RDA file containing the information on gene characteristics
 #'                   and the cell ordering times. Default is NULL in which case, it will not save output
-#' @param fix.phase if TRUE, the phase will be fixed in inference for the genes, default is FALSE
-#' @param phase_in if fix.phase is TRUE, then phase_in is G x 1 vector of user input gene phases.
-#'        Default is NULL as is the case if fix.phase=FALSE.
 #' @return Returns a list containing the following items
 #'  \item{cell_times}{estimated cell times from Gibbs sampler}
-#'  \item{amp}{The estimated amplitudes of the genes}
-#'  \item{phi}{The estimated phase angles of the genes}
-#'  \item{sigma}{The estimated non sinusoid signal variation of the genes}
+#'  \item{sigma}{The estimated non-signal or noise variation of the genes}
 #'  \item{loglik}{The model log likelihood of the fit}
 #'  \item{signal_intensity}{The intensity of each cell in each of the cell times classes}
 #'
@@ -36,10 +30,7 @@
 #' out <- cell_ordering_class(cycle_data, celltime_levels = 100, num_iter=100)
 
 
-
-
-cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, save_path=NULL,
-                                  fix.phase=FALSE, phase_in=NULL)
+np_cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, method=c("LOESS", "B-spline", "Wavelet"), save_path=NULL)
 {
   G <- dim(cycle_data)[2];
   numcells <- dim(cycle_data)[1];
@@ -51,19 +42,17 @@ cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, save_path
 
   for(iter in 1:num_iter)
   {
-    fun <- cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter, fix.phase, phase_in);
+    fun <- np_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter, method=c("LOESS", "B-spline", "Wavelet"));
     cell_times_iter <- fun$cell_times_iter;
-    amp_iter <- fun$amp_iter;
-    phi_iter <- fun$phi_iter;
-    sigma_iter <- fun$sigma_iter;
+    fiited_signal <- fun$fitted_signal;
     signal_intensity_iter <- fun$signal_intensity_iter;
-    loglik_iter <- loglik_cell_cycle(cycle_data, cell_times_iter, amp_iter, phi_iter, sigma_iter);
+    sigma_iter <- fun$sigma_iter;
+    loglik_iter <- loglik_cell_cycle(cycle_data, cell_times_iter, fitted_signal, );
     cat("The loglikelihood after iter", iter, "is:", loglik_iter,"\n")
   }
 
   out <- list("cell_times"=cell_times_iter,
-              "amp"=amp_iter,
-              "phi"=phi_iter,
+              "fitted_signal"=fitted_signal,
               "sigma"=sigma_iter,
               "loglik"=loglik_iter,
               "signal_intensity"=signal_intensity_iter)
@@ -73,3 +62,4 @@ cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, save_path
   }
   return(out)
 }
+

@@ -7,28 +7,35 @@ nonparam_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_
   numcells <- dim(cycle_data)[1];
   cell_times_class <- seq(0, 2*pi, 2*pi/(celltime_levels-1));
 
-  np_signal <- do.call(cbind, parallel::mclapply(1:G, function(g)
+  npfit_list <- parallel::mclapply(1:G, function(g)
                                   {
 
                                       if(method=="LOESS"){
                                               ordered_vec <- as.numeric(tapply(cycle_data[order(cell_times_iter),g], factor(sort(cell_times_iter)), mean));
                                               ordered_vec_out <- approx(unique(sort(cell_times_iter)), ordered_vec, xout = cell_times_class, ties = "ordered")$y
                                               fit <- loess(ordered_vec_out ~ cell_times_class)$fitted
+                                              out_sigma <- sd(ordered_vec_out);
                                       }
                                       if(method=="B-spline"){
                                               ordered_vec <- as.numeric(tapply(cycle_data[order(cell_times_iter),g], factor(sort(cell_times_iter)), mean));
                                               ordered_vec_out <- approx(unique(sort(cell_times_iter)), ordered_vec, xout = cell_times_class, ties = "ordered")$y
                                               fit <- smooth.spline(cell_times_class, ordered_vec_out)$y
+                                              out_sigma <- sd(ordered_vec_out);
                                       }
                                       if(method=="Wavelet"){
                                               ordered_vec <- as.numeric(tapply(cycle_data[order(cell_times_iter),g], factor(sort(cell_times_iter)), mean));
                                               ordered_vec_out <- approx(unique(sort(cell_times_iter)), ordered_vec, xout = cell_times_class, ties = "ordered")$y
                                               fit <-  wr(threshold(wd(ordered_vec_out), type="soft"));
+                                              out_sigma <- sd(ordered_vec_out);
                                       }
-                                      return(fit)
-  }, mc.cores=parallel::detectCores()))
+                                      out_list <- list("fit"=fit, "sigma"=out_sigma);
+                                      return(out_list)
+  }, mc.cores=parallel::detectCores())
 
-  options(digits=12)
+  np_signal <- do.call(cbind, lapply(1:G, function(g) return(npfit_list[[g]]$fit)));
+  sigma <- as.numeric(unlist(lapply(1:G, function(g) return(npfit_list[[g]]$sigma))));
+
+   options(digits=12)
   signal_intensity_per_class <- matrix(0, numcells, celltime_levels)
 
   signal_intensity_per_class <- do.call(rbind,parallel::mclapply(1:numcells, function(cell)
