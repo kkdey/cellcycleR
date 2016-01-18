@@ -1,29 +1,25 @@
 
-## Testing the package cellcycleR
+## testing the code for nonparametric cell cycle re-ordering
 
-library(devtools)
-install_github('kkdey/cellcycleR')
 library(cellcycleR)
+library(wavethresh)
 
-G <- 500;
-num_cells <- 400;
+G <- 100;
+num_cells <- 256;
 amp_genes <- rep(10, G);
-phi_genes <- runif(G, 0, 2*pi)
+phi_genes <- rep(c(2,5), each=G/2);
 sigma_genes <- rchisq(G, 4);
-cell_times_sim <- sample(seq(0,2*pi, 2*pi/(num_cells-1)), num_cells, replace=FALSE);
-
+cell_times_sim <- sort(sample(seq(0,2*pi, 2*pi/(num_cells-1)), num_cells, replace=FALSE));
 cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes, sigma_genes, cell_times_sim);
 
-celltime_levels <- 100;
+celltime_levels <- 128;
 
-system.time(out <- sin_cell_ordering_class(cycle_data, celltime_levels = 100, num_iter=100))
+system.time(out <- np_cell_ordering_class(cycle_data, celltime_levels = 100, num_iter=100, method="B-spline"))
 
 
 ## Post processing
 
-plot(amp_genes, out$amp, col="red",xlab="true amplitudes", ylab="est amplitudes", main="amplitudes est, comparison")
 plot(sigma_genes, out$sigma, col="red",xlab="true sigma", ylab="est sigma", main="sigma(variation) est, comparison")
-plot(phi_genes, out$phi, col="red",xlab="true phi", ylab="est phi", main="phase est, comparison");
 
 library(plotrix)
 library(RColorBrewer)

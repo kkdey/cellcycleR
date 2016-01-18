@@ -44,10 +44,10 @@ np_cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, method
   {
     fun <- np_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter, method=c("LOESS", "B-spline", "Wavelet"));
     cell_times_iter <- fun$cell_times_iter;
-    fiited_signal <- fun$fitted_signal;
+    fitted_signal <- fun$fitted_signal;
     signal_intensity_iter <- fun$signal_intensity_iter;
     sigma_iter <- fun$sigma_iter;
-    loglik_iter <- loglik_cell_cycle(cycle_data, cell_times_iter, fitted_signal, );
+    loglik_iter <- np_loglik_cellcycle(cycle_data, cell_times_iter, fitted_signal, sigma_iter);
     cat("The loglikelihood after iter", iter, "is:", loglik_iter,"\n")
   }
 
