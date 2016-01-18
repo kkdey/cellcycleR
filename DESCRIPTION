@@ -11,8 +11,10 @@ Description: Takes single cell expression data across genes, filters out the
     relative times of the cells on the cell cycle.
 License: GPL (>= 2)
 Imports:
+    MASS,
     parallel,
-    wavethresh
+    zoo
+Suggests: wavethresh
 LazyData: TRUE
 RoxygenNote: 5.0.1
 Encoding: ASCII

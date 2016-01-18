@@ -21,16 +21,5 @@ Computes the loglikelihood of all the cells in the cycle under nonparametric smo
  @author  Kushal K Dey
 
  @export
-
- @examples
- G <- 500;
- num_cells <- 400;
- amp_genes <- rep(10, G);
- phi_genes <- runif(G, 0, 2*pi)
- sigma_genes <- rchisq(G, 4);
- cell_times_sim <- sample(seq(0,2*pi, 2*pi/(num_cells-1)), num_cells, replace=FALSE);
- cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes, sigma_genes, cell_times_sim);
-
- loglik_cell_cycle_np(cycle_data, cell_times, amp_genes, phi_genes, sigma_genes)
 }
 
