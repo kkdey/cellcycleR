@@ -23,7 +23,7 @@
 #'  loglik_cell_cycle_np(cycle_data, cell_times, amp_genes, phi_genes, sigma_genes)
 #'
 
-loglik_cell_cycle_np <- function(cycle_data, cell_times, fit, sigma)
+np_loglik_cell_cycle <- function(cycle_data, cell_times, fit, sigma)
 {
   G <- dim(cycle_data)[2];
   numcells <- dim(cycle_data)[1];

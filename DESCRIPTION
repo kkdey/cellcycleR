@@ -1,14 +1,18 @@
 Package: cellcycleR
 Type: Package
 Title: For ordering the single cells on the cell cycle
-Version: 0.1.0
+Version: 0.1.1
 Date: 2015-11-02
-Author: c(
-    person("Kushal", "Dey", email = "kkdey@uchicago.edu", role = c("aut","cre")))
+Author: c( person("Kushal", "Dey", email = "kkdey@uchicago.edu", role =
+    c("aut","cre")))
 Maintainer: Kushal K Dey <kkdey@uchicago.edu>
-Description: Takes single cell expression data across genes, filters out the sinusoidal genes and based on the sinusoidal gene expression, outputs some relative times of the cells on the cell cycle.
+Description: Takes single cell expression data across genes, filters out the
+    sinusoidal genes and based on the sinusoidal gene expression, outputs some
+    relative times of the cells on the cell cycle.
 License: GPL (>= 2)
-Imports: parallel
+Imports:
+    parallel
+    wavethresh
 LazyData: TRUE
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1
 Encoding: ASCII

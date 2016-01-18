@@ -3,4 +3,5 @@
 export(atan3)
 export(cell_ordering_class)
 export(cell_ordering_full)
+export(np_cell_ordering_class)
 export(sim_sinusoidal_cycle)

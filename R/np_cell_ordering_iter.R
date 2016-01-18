@@ -1,4 +1,4 @@
-nonparam_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter, method=c("LOESS", "B-spline", "Wavelet"))
+np_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter, method=c("LOESS", "B-spline", "Wavelet"))
 {
   # cycle_data: a N \times G matrix, where N is number of cells, G number of genes
   # cell_times_iter:  the vector of cell times taken as input (a N \times 1)
@@ -63,7 +63,7 @@ nonparam_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_
     return(out)
   }))];
 
-  out <- list("cell_times_iter"=cell_times, "signal_intensity_iter"=signal_intensity_per_class, "fitted_signal"=np_signal);
+  out <- list("cell_times_iter"=cell_times, "signal_intensity_iter"=signal_intensity_per_class, "fitted_signal"=np_signal, "sigma_iter"=sigma);
   return(out)
 }
 
