@@ -15,14 +15,14 @@ np_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter, 
                                               ordered_vec_out <- approx(unique(sort(cell_times_iter)), ordered_vec, xout = cell_times_class, ties = "ordered")$y
                                               ordered_vec_out <- zoo::na.fill(ordered_vec_out, "extend");
                                               fit <- loess(ordered_vec_out ~ cell_times_class)$fitted
-                                              out_sigma <- sd(ordered_vec_out);
+                                              out_sigma <- sd(cycle_data[,g]);
                                       }
                                       if(method=="B-spline"){
                                               ordered_vec <- as.numeric(tapply(cycle_data[order(cell_times_iter),g], factor(sort(cell_times_iter)), mean));
                                               ordered_vec_out <- approx(unique(sort(cell_times_iter)), ordered_vec, xout = cell_times_class, ties = "ordered")$y
                                               ordered_vec_out <- zoo::na.fill(ordered_vec_out, "extend");
                                               fit <- smooth.spline(cell_times_class, ordered_vec_out)$y
-                                              out_sigma <- sd(ordered_vec_out);
+                                              out_sigma <- sd(cycle_data[,g]);
                                       }
                                       if(method=="Wavelet"){
                                               if(log(celltime_levels)%% log(2) !=0) stop("for wavelet smoother, number of time classes must be power of 2")
@@ -31,7 +31,7 @@ np_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter, 
                                               ordered_vec_out <- approx(unique(sort(cell_times_iter)), ordered_vec, xout = cell_times_class, ties = "ordered")$y
                                               ordered_vec_out <- zoo::na.fill(ordered_vec_out, "extend");
                                               fit <-  wr(threshold(wd(ordered_vec_out), type="soft"));
-                                              out_sigma <- sd(ordered_vec_out);
+                                              out_sigma <- sd(cycle_data[,g]);
                                       }}
                                       out_list <- list("fit"=fit, "sigma"=out_sigma);
                                       return(out_list)
