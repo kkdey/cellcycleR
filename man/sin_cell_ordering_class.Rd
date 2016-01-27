@@ -5,7 +5,7 @@
 \title{Cell ordering into different phases on the cell cycle}
 \usage{
 sin_cell_ordering_class(cycle_data, celltime_levels, num_iter,
-  save_path = NULL, fix.phase = FALSE, phase_in = NULL)
+  save_path = NULL, fix.phase = FALSE, phase_in = NULL, verbose = FALSE)
 }
 \arguments{
 \item{num_iter}{The number of iterations to run for the Gibbs sampler scheme}
@@ -17,6 +17,8 @@ and the cell ordering times. Default is NULL in which case, it will not save out
 
 \item{phase_in}{if fix.phase is TRUE, then phase_in is G x 1 vector of user input gene phases.
 Default is NULL as is the case if fix.phase=FALSE.}
+
+\item{verbose}{if TRUE, prints the loglikelihood at each step/iteration. If FALSE,just prints final loglikelihood.}
 
 \item{cycle_data:}{a N x G matrix, where N is number of cells, G number of genes}
 
