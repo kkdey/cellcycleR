@@ -11,17 +11,39 @@ np_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter, 
                                   {
 
                                       if(method=="LOESS"){
+                                              ## take mean of the observations belonging to same time class
                                               ordered_vec <- as.numeric(tapply(cycle_data[order(cell_times_iter),g], factor(sort(cell_times_iter)), mean));
+                                                ## interpolate the values at class times in which no cell has been placed
                                               ordered_vec_out <- approx(unique(sort(cell_times_iter)), ordered_vec, xout = cell_times_class, ties = "ordered")$y
+                                              ## substitute the NAs at the ends by nearest observation
                                               ordered_vec_out <- zoo::na.fill(ordered_vec_out, "extend");
-                                              fit <- loess(ordered_vec_out ~ cell_times_class)$fitted
+                                              ## duplicate the cell time classes 2 times to account for np smoothing with make ends meet
+                                              cell_times_class_extend <- c(cell_times_class, cell_times_class+2*pi, cell_times_class+4*pi);
+                                              ## replicate the observations for the duplicated time classes
+                                              ordered_vec_out_extend <- rep(ordered_vec_out,3);
+                                              ## Fit the LOESS smoother on the duplicated data against time
+                                              fit_extend <- loess(ordered_vec_out_extend ~ cell_times_class_extend)$fitted;
+                                              ## Filter out the smoothed fit from the middle stretch of duplicated data
+                                              fit <- fit_extend[(celltime_levels+1):(2*celltime_levels)];
+                                              ## The standard error of the data
                                               out_sigma <- sd(cycle_data[,g]);
                                       }
                                       if(method=="B-spline"){
+                                              ## take mean of the observations belonging to same time class
                                               ordered_vec <- as.numeric(tapply(cycle_data[order(cell_times_iter),g], factor(sort(cell_times_iter)), mean));
+                                              ## interpolate the values at class times in which no cell has been placed
                                               ordered_vec_out <- approx(unique(sort(cell_times_iter)), ordered_vec, xout = cell_times_class, ties = "ordered")$y
+                                              ## substitute the NAs at the ends by nearest observation
                                               ordered_vec_out <- zoo::na.fill(ordered_vec_out, "extend");
-                                              fit <- smooth.spline(cell_times_class, ordered_vec_out)$y
+                                              ## duplicate the cell time classes 2 times to account for np smoothing with make ends meet
+                                              cell_times_class_extend <- c(cell_times_class, cell_times_class+2*pi, cell_times_class+4*pi);
+                                              ## replicate the observations for the duplicated time classes
+                                              ordered_vec_out_extend <- rep(ordered_vec_out,3);
+                                              ## Fit the B-spline smoother on the duplicated data against time
+                                              fit_extend <- smooth.spline(cell_times_class_extend, ordered_vec_out_extend)$y;
+                                              ## Fit the B-spline smoother on the duplicated data against time
+                                              fit <- fit_extend[(celltime_levels+1):(2*celltime_levels)];
+                                              ## The standard error of the data
                                               out_sigma <- sd(cycle_data[,g]);
                                       }
                                       if(method=="Wavelet"){
