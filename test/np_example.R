@@ -33,8 +33,9 @@ radial.plot(lengths=1:length(out$cell_times),radial.pos=out$cell_times[order(cel
 radial.plot(lengths=1:length(cell_times_reorder),radial.pos=sort(cell_times_reorder),
             line.col=colorRampPalette(brewer.pal(9,"Blues"))(length(cell_times_reorder)), lwd=2)
 
-plot(cycle_data_reorder[order(out$cell_times),30], type="l")
+par(mfrow = c(1,2))
 plot(cycle_data[,30],type="l")
+plot(cycle_data_reorder[order(out$cell_times),30], type="l")
 
 
 ## LOWESS smoothing
