@@ -1,9 +1,9 @@
 #' @title Loglikelihood of of sinusoidal genes in cell cycle
 #'
-#' @param cycle_data: a N x G matrix, where N is number of cells, G number of genes
-#' @param cell_times : a N x 1 vector of cell times
-#' @param amp: the amplitude vector (G x 1) over the genes
-#' @param phi: the G x 1 vector of phase values over genes
+#' @param cycle_data a N x G matrix, where N is number of cells, G number of genes
+#' @param cell_times a N x 1 vector of cell times
+#' @param amp the amplitude vector (G x 1) over the genes
+#' @param phi the G x 1 vector of phase values over genes
 #' @param sigma: the G x 1 vector of gene variation
 #'
 #' @description Computes the loglikelihood of all the cells in the cycle under sinusoidal
@@ -23,7 +23,6 @@
 #'  cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes, sigma_genes, cell_times_sim);
 #'
 #'  loglik_cell_cycle(cycle_data, cell_times, amp_genes, phi_genes, sigma_genes)
-#'
 
 sin_loglik_cellcycle <- function(cycle_data, cell_times, amp, phi, sigma)
 {
@@ -33,7 +32,8 @@ sin_loglik_cellcycle <- function(cycle_data, cell_times, amp, phi, sigma)
 
   for(s in 1:numcells)
   {
-    sum <- sum + sum(mapply(dnorm, cycle_data[s,],amp * sin(cell_times[s] + phi), sigma, log=TRUE));
+    sum <- sum + sum(mapply(dnorm, cycle_data[s,],
+                            amp * sin(cell_times[s] + phi), sigma, log=TRUE));
   }
 
   return(sum)
