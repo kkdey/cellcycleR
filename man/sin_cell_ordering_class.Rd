@@ -2,13 +2,20 @@
 % Please edit documentation in R/sin_cell_ordering_class.R
 \name{sin_cell_ordering_class}
 \alias{sin_cell_ordering_class}
-\title{Cell ordering into different phases on the cell cycle}
+\title{Sinusoidal model fitting}
 \usage{
-sin_cell_ordering_class(cycle_data, celltime_levels, num_iter,
-  save_path = NULL, fix.phase = FALSE, phase_in = NULL)
+sin_cell_ordering_class(cycle_data, celltime_levels, num_iter = NULL,
+  save_path = NULL, fix.phase = FALSE, phase_in = NULL, verbose = FALSE,
+  tol = 0.01, maxiter = 500)
 }
 \arguments{
-\item{num_iter}{The number of iterations to run for the Gibbs sampler scheme}
+\item{cycle_data}{a N x G matrix, where N is number of cells, G number of genes}
+
+\item{celltime_levels}{The number of phase classes chosen (The deafult is 100). It splits up
+circle or the range (0, 2pi) into celltime_levels uniform splits.}
+
+\item{num_iter}{Number of iterations. If not specified, number of iteration
+is set to be maxiter (the maximum number of iteratoins).}
 
 \item{save_path}{The file path to save the RDA file containing the information on gene characteristics
 and the cell ordering times. Default is NULL in which case, it will not save output}
@@ -17,11 +24,6 @@ and the cell ordering times. Default is NULL in which case, it will not save out
 
 \item{phase_in}{if fix.phase is TRUE, then phase_in is G x 1 vector of user input gene phases.
 Default is NULL as is the case if fix.phase=FALSE.}
-
-\item{cycle_data:}{a N x G matrix, where N is number of cells, G number of genes}
-
-\item{celltime_levels:}{The number of phase classes chosen (The deafult is 100). It splits up
-circle or the range (0, 2pi) into celltime_levels uniform splits.}
 }
 \value{
 Returns a list containing the following items
@@ -33,11 +35,12 @@ Returns a list containing the following items
  \item{signal_intensity}{The intensity of each cell in each of the cell times classes}
 }
 \description{
-The function runs a Gibbs sampler for a number of iterations to obtain the estimates
-            of cell times on cell cycle (modulo rotation) as well as the gene features (amplitude,
-             phase and noise variation)
+This function fits a sinsoidal model to gene expression data and 
+             computes cell-order estimates on cell-cycle (modulo rotation),
+             as well as the gene-specific cell-cycle features, including amplitude,
+             phase and noise variation.
 }
 \author{
-Kushal K Dey
+Kushal K Dey, Joyce Hsiao
 }
 

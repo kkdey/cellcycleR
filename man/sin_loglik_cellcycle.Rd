@@ -7,13 +7,13 @@
 sin_loglik_cellcycle(cycle_data, cell_times, amp, phi, sigma)
 }
 \arguments{
-\item{cell_times}{: a N x 1 vector of cell times}
+\item{cycle_data}{a N x G matrix, where N is number of cells, G number of genes}
 
-\item{cycle_data:}{a N x G matrix, where N is number of cells, G number of genes}
+\item{cell_times}{a N x 1 vector of cell times}
 
-\item{amp:}{the amplitude vector (G x 1) over the genes}
+\item{amp}{the amplitude vector (G x 1) over the genes}
 
-\item{phi:}{the G x 1 vector of phase values over genes}
+\item{phi}{the G x 1 vector of phase values over genes}
 
 \item{sigma:}{the G x 1 vector of gene variation}
 }
