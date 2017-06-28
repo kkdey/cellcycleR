@@ -49,7 +49,7 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, save_
     phi_iter <- fun$phi_iter;
     sigma_iter <- fun$sigma_iter;
     signal_intensity_iter <- fun$signal_intensity_iter;
-    loglik_iter <- sin_loglik_cellcycle(cycle_data, cell_times_iter, amp_iter, phi_iter, sigma_iter);
+    loglik_iter <- sin_loglik_cellcycle(cycle_data, cell_times_iter, amp_iter, phi_iter, sigma_iter, freq);
     if (verbose == TRUE) {
     cat("The loglikelihood after iter", iter, "is:", loglik_iter,"\n")
     }

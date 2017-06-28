@@ -45,7 +45,7 @@ sin_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter,
     phi <- phase_in;
     lmfit_list <- parallel::mclapply(1:G, function(g)
                           {
-                              fit <- lm(cycle_data[,g]  ~ sin(cell_times_iter+phi[g]) -1);
+                              fit <- lm(cycle_data[,g]  ~ sin(freq*cell_times_iter+phi[g]) -1);
                               out_sigma <- sd(fit$residuals);
                               out_amp <- abs(fit$coefficients[1]);
                               out_phi <- phi;
@@ -62,8 +62,8 @@ sin_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter,
   cell_times_class <- seq(0, 2*pi, 2*pi/(celltime_levels-1));
   num_celltime_class <- length(cell_times_class);
 
-  sin_class_times <- sin(cell_times_class);
-  cos_class_times <- cos(cell_times_class);
+  sin_class_times <- sin(freq*cell_times_class);
+  cos_class_times <- cos(freq*cell_times_class);
   sin_phi_genes <- sin(phi);
   cos_phi_genes <- cos(phi);
   sinu_signal <- cbind(sin_class_times, cos_class_times) %*% rbind(amp*cos_phi_genes, amp*sin_phi_genes);

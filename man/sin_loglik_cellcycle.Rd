@@ -4,7 +4,7 @@
 \alias{sin_loglik_cellcycle}
 \title{Loglikelihood of of sinusoidal genes in cell cycle}
 \usage{
-sin_loglik_cellcycle(cycle_data, cell_times, amp, phi, sigma)
+sin_loglik_cellcycle(cycle_data, cell_times, amp, phi, sigma, freq = 1)
 }
 \arguments{
 \item{cell_times}{: a N x 1 vector of cell times}
@@ -16,6 +16,8 @@ sin_loglik_cellcycle(cycle_data, cell_times, amp, phi, sigma)
 \item{phi:}{the G x 1 vector of phase values over genes}
 
 \item{sigma:}{the G x 1 vector of gene variation}
+
+\item{freq:}{frequency of the signal of the gene. Defaults to 1.}
 }
 \description{
 Computes the loglikelihood of all the cells in the cycle under sinusoidal
