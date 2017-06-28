@@ -23,4 +23,3 @@ The function computes the tan inverse of ratio of two numbers and maps it to the
 \author{
 Kushal K Dey
 }
-

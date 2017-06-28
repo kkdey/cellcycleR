@@ -22,4 +22,3 @@ Computes the loglikelihood of all the cells in the cycle under nonparametric smo
 
  @export
 }
-

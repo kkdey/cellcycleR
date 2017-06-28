@@ -1,4 +1,5 @@
-sin_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter, fix.phase=FALSE, phase_in=NULL)
+sin_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter,
+                                   fix.phase=FALSE, phase_in=NULL, freq = 1)
 {
   if(fix.phase==TRUE & is.null(phase_in))
     stop("fix.phase=TRUE and phase not provided")
@@ -22,7 +23,7 @@ sin_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter,
 
     lmfit_list <- parallel::mclapply(1:G, function(g)
                                 {
-                                  fit <- lm(cycle_data[,g]  ~ sin(cell_times_iter) + cos(cell_times_iter) -1);
+                                  fit <- lm(cycle_data[,g]  ~ sin(freq*cell_times_iter) + cos(freq*cell_times_iter) -1);
                                   out_sigma <- sd(fit$residuals);
                                   beta1 <- fit$coefficients[1];
                                   beta2 <- fit$coefficients[2];

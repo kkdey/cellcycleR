@@ -32,4 +32,3 @@ The function runs a Gibbs sampler for a number of iterations to obtain the estim
 \author{
 Kushal K Dey
 }
-

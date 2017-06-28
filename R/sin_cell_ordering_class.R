@@ -13,6 +13,7 @@
 #' @param fix.phase if TRUE, the phase will be fixed in inference for the genes, default is FALSE
 #' @param phase_in if fix.phase is TRUE, then phase_in is G x 1 vector of user input gene phases.
 #'        Default is NULL as is the case if fix.phase=FALSE.
+#' @param freq The frequency of the sinusoidal genes. The default is 1.
 #' @param verbose if TRUE, prints the loglikelihood at each step/iteration. If FALSE,just prints final loglikelihood.
 #'
 #' @return Returns a list containing the following items
@@ -28,7 +29,8 @@
 
 
 sin_cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, save_path=NULL,
-                                  fix.phase=FALSE, phase_in=NULL, verbose = FALSE)
+                                  fix.phase=FALSE, phase_in=NULL, freq = 1,
+                                  verbose = FALSE)
 {
   G <- dim(cycle_data)[2];
   numcells <- dim(cycle_data)[1];
@@ -40,7 +42,8 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, save_
 
   for(iter in 1:num_iter)
   {
-    fun <- sin_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter, fix.phase, phase_in);
+    fun <- sin_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter,
+                                  fix.phase, phase_in, freq);
     cell_times_iter <- fun$cell_times_iter;
     amp_iter <- fun$amp_iter;
     phi_iter <- fun$phi_iter;

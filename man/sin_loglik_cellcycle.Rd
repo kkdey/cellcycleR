@@ -36,4 +36,3 @@ Computes the loglikelihood of all the cells in the cycle under sinusoidal
 
  loglik_cell_cycle(cycle_data, cell_times, amp_genes, phi_genes, sigma_genes)
 }
-

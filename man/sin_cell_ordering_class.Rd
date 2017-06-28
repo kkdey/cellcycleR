@@ -5,7 +5,8 @@
 \title{Cell ordering into different phases on the cell cycle}
 \usage{
 sin_cell_ordering_class(cycle_data, celltime_levels, num_iter,
-  save_path = NULL, fix.phase = FALSE, phase_in = NULL, verbose = FALSE)
+  save_path = NULL, fix.phase = FALSE, phase_in = NULL, freq = 1,
+  verbose = FALSE)
 }
 \arguments{
 \item{num_iter}{The number of iterations to run for the Gibbs sampler scheme}
@@ -17,6 +18,8 @@ and the cell ordering times. Default is NULL in which case, it will not save out
 
 \item{phase_in}{if fix.phase is TRUE, then phase_in is G x 1 vector of user input gene phases.
 Default is NULL as is the case if fix.phase=FALSE.}
+
+\item{freq}{The frequency of the sinusoidal genes. The default is 1.}
 
 \item{verbose}{if TRUE, prints the loglikelihood at each step/iteration. If FALSE,just prints final loglikelihood.}
 
@@ -42,4 +45,3 @@ The function runs a Gibbs sampler for a number of iterations to obtain the estim
 \author{
 Kushal K Dey
 }
-

@@ -27,4 +27,3 @@ The function takes the output from the cell_phase_ordering function and provides
 \author{
 Kushal K Dey
 }
-
