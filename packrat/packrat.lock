@@ -1,0 +1,49 @@
+PackratFormat: 1.4
+PackratVersion: 0.4.8.52
+RVersion: 3.4.1
+Repos: CRAN=https://vps.fmvz.usp.br/CRAN
+
+Package: EbayesThresh
+Source: CRAN
+Version: 1.4-12
+Requires: wavethresh
+
+Package: MASS
+Source: CRAN
+Version: 7.3-47
+Hash: cef924b1619219cfc32edbb8a340e652
+
+Package: adlift
+Source: CRAN
+Version: 1.3-3
+Requires: EbayesThresh
+
+Package: binhf
+Source: CRAN
+Version: 1.0-1
+Requires: adlift, wavethresh
+
+Package: lattice
+Source: CRAN
+Version: 0.20-35
+Hash: 26b9d7f0d0cb4e1d1bbb97f867c82d89
+
+Package: packrat
+Source: github
+Version: 0.4.8-52
+Hash: 873226939cf56d230bb03a49450bb15e
+GithubRepo: packrat
+GithubUsername: rstudio
+GithubRef: master
+GithubSha1: da4ac099a9d88940740534bcf022aa33d8dcf90e
+
+Package: wavethresh
+Source: CRAN
+Version: 4.6.8
+Requires: MASS
+
+Package: zoo
+Source: CRAN
+Version: 1.8-0
+Requires: lattice
+Hash: df9711767f56f086e8a8d1f0fb926ff6

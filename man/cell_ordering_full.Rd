@@ -2,7 +2,7 @@
 % Please edit documentation in R/cell_ordering_full.R
 \name{cell_ordering_full}
 \alias{cell_ordering_full}
-\title{Cell continuous ordering - post processing of cell time class ordering}
+\title{Cell-phase ordering - post processing of estimated cell-phase}
 \usage{
 cell_ordering_full(signal_intensity, num_genes)
 }

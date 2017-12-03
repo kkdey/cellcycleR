@@ -1,4 +1,4 @@
-#' @title Cell continuous ordering - post processing of cell time class ordering
+#' @title Cell-phase ordering - post processing of estimated cell-phase
 #'
 #' @param signal_intensity: The signal intensity for the cells across time classes (N x T) matrix,
 #'                          where T represents the number of time classes (equal to celltime_levels)

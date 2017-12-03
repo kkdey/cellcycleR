@@ -1,5 +1,23 @@
-sin_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter,
-                                   fix.phase=FALSE, phase_in=NULL, freq = 1)
+#' @title Fitting sinusoidal model
+#'
+#' @param cycle_data a N x G matrix, where N is number of cells, G number of genes
+#' @param cell_times a N x 1 vector of cell times (not ordered)
+#' @param fix.phase TRUE if cell_times is an ordered vector, i.e., the 
+#'                  relative position of cells in time is known, and FALSE otherwise.
+#'
+#' @description Compute sinusoidal model estimates. 
+#'
+#'  @author  Kushal K Dey
+#'
+#'  @export
+#'  @examples
+
+sin_cell_ordering_iter <- function(cycle_data, 
+                                   celltime_levels, 
+                                   cell_times_iter, 
+                                   fix.phase=FALSE, phase_in=NULL)
+#sin_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter,
+#                                   fix.phase=FALSE, phase_in=NULL, freq = 1)
 {
   if(fix.phase==TRUE & is.null(phase_in))
     stop("fix.phase=TRUE and phase not provided")
@@ -8,14 +26,11 @@ sin_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter,
   if(length(unique(cell_times_iter))==1)
     stop("All the points have converged at same point on cycle");
 
-  # cycle_data: a N \times G matrix, where N is number of cells, G number of genes
-  # cell_times_iter:  the vector of cell times taken as input (a N \times 1)
-
-  G <- dim(cycle_data)[2];
-  numcells <- dim(cycle_data)[1];
-  sigma <- array(0,G);
-  amp <- array(0,G);
-  phi <- array(0,G);
+  G <- dim(cycle_data)[2]
+  numcells <- dim(cycle_data)[1]
+  sigma <- array(0,G)
+  amp <- array(0,G)
+  phi <- array(0,G)
 
   # Fit linear models for each gene $g$ given the cell times [ linear model depends on fix.phase]
 
