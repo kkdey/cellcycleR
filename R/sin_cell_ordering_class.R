@@ -15,8 +15,13 @@
 #' @param fix.phase if TRUE, the phase will be fixed in inference for the genes, default is FALSE
 #' @param phase_in if fix.phase is TRUE, then phase_in is G x 1 vector of user input gene phases.
 #'        Default is NULL as is the case if fix.phase=FALSE.
+<<<<<<< HEAD
 #' @maxiter The maximum number of iterations. Default = 500. 
 #'        
+=======
+#' @param verbose if TRUE, prints the loglikelihood at each step/iteration. If FALSE,just prints final loglikelihood.
+#'
+>>>>>>> upstream/master
 #' @return Returns a list containing the following items
 #'  \item{cell_times}{estimated cell times from Gibbs sampler}
 #'  \item{amp}{The estimated amplitudes of the genes}

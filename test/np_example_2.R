@@ -1,6 +1,7 @@
 
 library(cellcycleR)
 library(wavethresh)
+library(binhf)
 
 G <- 100;
 num_cells <- 256;
@@ -11,7 +12,7 @@ cycle_data <- matrix(0,num_cells,G)
 # base <- c(1:(num_cells/4), (num_cells/4):1, 1:(num_cells/4), (num_cells/4):1);
 base <- c(1:(num_cells/4), (num_cells/4):1, rep(0,num_cells/4), rep(0,num_cells/4));
 for(g in 1:G){
-cycle_data[,g] <- rnorm(num_cells,shift(base,2*g, dir="right"),sigma_genes[g]);
+cycle_data[,g] <- rnorm(num_cells,binhf::shift(base,2*g, dir="right"),sigma_genes[g]);
 }
 
 plot(cycle_data[,1], type="l")

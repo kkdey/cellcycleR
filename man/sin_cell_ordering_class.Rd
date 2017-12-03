@@ -4,9 +4,14 @@
 \alias{sin_cell_ordering_class}
 \title{Sinusoidal model fitting}
 \usage{
+<<<<<<< HEAD
 sin_cell_ordering_class(cycle_data, celltime_levels, num_iter = NULL,
   save_path = NULL, fix.phase = FALSE, phase_in = NULL, verbose = FALSE,
   tol = 0.01, maxiter = 500)
+=======
+sin_cell_ordering_class(cycle_data, celltime_levels, num_iter,
+  save_path = NULL, fix.phase = FALSE, phase_in = NULL, verbose = FALSE)
+>>>>>>> upstream/master
 }
 \arguments{
 \item{cycle_data}{a N x G matrix, where N is number of cells, G number of genes}
@@ -24,6 +29,16 @@ and the cell ordering times. Default is NULL in which case, it will not save out
 
 \item{phase_in}{if fix.phase is TRUE, then phase_in is G x 1 vector of user input gene phases.
 Default is NULL as is the case if fix.phase=FALSE.}
+<<<<<<< HEAD
+=======
+
+\item{verbose}{if TRUE, prints the loglikelihood at each step/iteration. If FALSE,just prints final loglikelihood.}
+
+\item{cycle_data:}{a N x G matrix, where N is number of cells, G number of genes}
+
+\item{celltime_levels:}{The number of phase classes chosen (The deafult is 100). It splits up
+circle or the range (0, 2pi) into celltime_levels uniform splits.}
+>>>>>>> upstream/master
 }
 \value{
 Returns a list containing the following items
