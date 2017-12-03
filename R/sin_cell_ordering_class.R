@@ -15,7 +15,7 @@
 #' @param fix.phase if TRUE, the phase will be fixed in inference for the genes, default is FALSE
 #' @param phase_in if fix.phase is TRUE, then phase_in is G x 1 vector of user input gene phases.
 #'        Default is NULL as is the case if fix.phase=FALSE.
-#' @maxiter The maximum number of iterations. Default = 500. 
+#' @param maxiter The maximum number of iterations. Default = 500. 
 #'        
 #' @param freq The frequency of the sinusoidal genes. The default is 1.
 #' @param verbose if TRUE, prints the loglikelihood at each step/iteration. If FALSE,just prints final loglikelihood.
@@ -76,31 +76,30 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels,
     loglik_previous <- loglik_iter
     
     if (verbose) {
-        message("Iteration: ", loglik_iter, " eps: ", eps)
-  for(iter in 1:num_iter)
-  {
-    fun <- sin_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter,
+        message("Iteration: ", loglik_iter, " eps: ", eps) }
+  
+    for(iter in 1:num_iter) {
+      fun <- sin_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter,
                                   fix.phase, phase_in, freq);
-    cell_times_iter <- fun$cell_times_iter;
-    amp_iter <- fun$amp_iter;
-    phi_iter <- fun$phi_iter;
-    sigma_iter <- fun$sigma_iter;
-    signal_intensity_iter <- fun$signal_intensity_iter;
-    loglik_iter <- sin_loglik_cellcycle(cycle_data, cell_times_iter, amp_iter, phi_iter, sigma_iter, freq);
-    if (verbose == TRUE) {
-    cat("The loglikelihood after iter", iter, "is:", loglik_iter,"\n")
+      cell_times_iter <- fun$cell_times_iter;
+      amp_iter <- fun$amp_iter;
+      phi_iter <- fun$phi_iter;
+      sigma_iter <- fun$sigma_iter;
+      signal_intensity_iter <- fun$signal_intensity_iter;
+      loglik_iter <- sin_loglik_cellcycle(cycle_data, cell_times_iter, amp_iter, phi_iter, sigma_iter, freq);
+      if (verbose == TRUE) {
+        cat("The loglikelihood after iter", iter, "is:", loglik_iter,"\n")
+      }
+    
+      cell_times_previous <- cell_times_iter
     }
-    
-    cell_times_previous <- cell_times_iter
-    
     }
-    
-    output <- list("cell_times" = cell_times_iter,
-                   "amp" = amp_iter,
-                   "phi" = phi_iter,
-                   "sigma" = sigma_iter,
-                   "loglik" = loglik_iter,
-                   "signal_intensity" = signal_intensity_iter)
+    output <- list(cell_times = cell_times_iter,
+                   amp = amp_iter,
+                   phi = phi_iter,
+                   sigma = sigma_iter,
+                   loglik = loglik_iter,
+                   signal_intensity = signal_intensity_iter)
 
   if( !is.null(save_path) ) { save(output, file=save_path) }
 

@@ -33,12 +33,8 @@ sin_loglik_cellcycle <- function(cycle_data, cell_times, amp, phi, sigma, freq=1
 
   for(s in 1:numcells)
   {
-<<<<<<< HEAD
     sum <- sum + sum(mapply(dnorm, cycle_data[s,],
                             amp * sin(cell_times[s] + phi), sigma, log=TRUE));
-=======
-    sum <- sum + sum(mapply(dnorm, cycle_data[s,],amp * sin(freq*cell_times[s] + phi), sigma, log=TRUE));
->>>>>>> 2d7a828a1fa652bc0c734bb34222020c79de450b
   }
 
   return(sum)

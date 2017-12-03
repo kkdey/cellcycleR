@@ -23,4 +23,3 @@ Compute sinusoidal model estimates.
  @export
  @examples
 }
-

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #' @title Fitting sinusoidal model
 #'
 #' @param cycle_data a N x G matrix, where N is number of cells, G number of genes
@@ -17,10 +16,8 @@ sin_cell_ordering_iter <- function(cycle_data,
                                    celltime_levels, 
                                    cell_times_iter, 
                                    fix.phase=FALSE, phase_in=NULL)
-=======
-sin_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter,
-                                   fix.phase=FALSE, phase_in=NULL, freq = 1)
->>>>>>> 2d7a828a1fa652bc0c734bb34222020c79de450b
+#sin_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter,
+#                                   fix.phase=FALSE, phase_in=NULL, freq = 1)
 {
   if(fix.phase==TRUE & is.null(phase_in))
     stop("fix.phase=TRUE and phase not provided")
