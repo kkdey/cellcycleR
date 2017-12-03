@@ -48,4 +48,3 @@ cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes,
 \author{
 Kushal K Dey, Joyce Hsiao
 }
-

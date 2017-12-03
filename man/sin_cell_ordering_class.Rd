@@ -2,7 +2,11 @@
 % Please edit documentation in R/sin_cell_ordering_class.R
 \name{sin_cell_ordering_class}
 \alias{sin_cell_ordering_class}
+<<<<<<< HEAD
 \title{Sinusoidal model fitting}
+=======
+\title{Cell ordering into different phases on the cell cycle using sinusoidal features (genes)}
+>>>>>>> 2d7a828a1fa652bc0c734bb34222020c79de450b
 \usage{
 <<<<<<< HEAD
 sin_cell_ordering_class(cycle_data, celltime_levels, num_iter = NULL,
@@ -10,8 +14,13 @@ sin_cell_ordering_class(cycle_data, celltime_levels, num_iter = NULL,
   tol = 0.01, maxiter = 500)
 =======
 sin_cell_ordering_class(cycle_data, celltime_levels, num_iter,
+<<<<<<< HEAD
   save_path = NULL, fix.phase = FALSE, phase_in = NULL, verbose = FALSE)
 >>>>>>> upstream/master
+=======
+  save_path = NULL, fix.phase = FALSE, phase_in = NULL, freq = 1,
+  verbose = FALSE)
+>>>>>>> 2d7a828a1fa652bc0c734bb34222020c79de450b
 }
 \arguments{
 \item{cycle_data}{a N x G matrix, where N is number of cells, G number of genes}
@@ -31,6 +40,8 @@ and the cell ordering times. Default is NULL in which case, it will not save out
 Default is NULL as is the case if fix.phase=FALSE.}
 <<<<<<< HEAD
 =======
+
+\item{freq}{The frequency of the sinusoidal genes. The default is 1.}
 
 \item{verbose}{if TRUE, prints the loglikelihood at each step/iteration. If FALSE,just prints final loglikelihood.}
 
@@ -58,4 +69,3 @@ This function fits a sinsoidal model to gene expression data and
 \author{
 Kushal K Dey, Joyce Hsiao
 }
-
