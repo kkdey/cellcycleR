@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-#' @title Sinusoidal model fitting
-=======
 #' @title Cell ordering into different phases on the cell cycle using sinusoidal features (genes)
->>>>>>> 2d7a828a1fa652bc0c734bb34222020c79de450b
 #'
 #' @description This function fits a sinsoidal model to gene expression data and 
 #'              computes cell-order estimates on cell-cycle (modulo rotation),
@@ -19,17 +15,11 @@
 #' @param fix.phase if TRUE, the phase will be fixed in inference for the genes, default is FALSE
 #' @param phase_in if fix.phase is TRUE, then phase_in is G x 1 vector of user input gene phases.
 #'        Default is NULL as is the case if fix.phase=FALSE.
-<<<<<<< HEAD
-<<<<<<< HEAD
 #' @maxiter The maximum number of iterations. Default = 500. 
 #'        
-=======
-=======
 #' @param freq The frequency of the sinusoidal genes. The default is 1.
->>>>>>> 2d7a828a1fa652bc0c734bb34222020c79de450b
 #' @param verbose if TRUE, prints the loglikelihood at each step/iteration. If FALSE,just prints final loglikelihood.
 #'
->>>>>>> upstream/master
 #' @return Returns a list containing the following items
 #'  \item{cell_times}{estimated cell times from Gibbs sampler}
 #'  \item{amp}{The estimated amplitudes of the genes}
@@ -41,17 +31,10 @@
 #' @author  Kushal K Dey, Joyce Hsiao
 #' @export
 
-<<<<<<< HEAD
 sin_cell_ordering_class <- function(cycle_data, celltime_levels, 
                                     num_iter = NULL, save_path=NULL,
                                     fix.phase=FALSE, phase_in=NULL, 
                                     verbose = FALSE, tol = .01, maxiter = 500)
-=======
-
-sin_cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, save_path=NULL,
-                                  fix.phase=FALSE, phase_in=NULL, freq = 1,
-                                  verbose = FALSE)
->>>>>>> 2d7a828a1fa652bc0c734bb34222020c79de450b
 {
   G <- dim(cycle_data)[2]
   numcells <- dim(cycle_data)[1]
@@ -86,7 +69,6 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, save_
                                         sigma_iter)
     if (verbose) message("log-likelihood:", loglik_iter)
 
-<<<<<<< HEAD
     eps <- abs(loglik_iter - loglik_previous)/abs(loglik_previous)
     # loop out if converged
     if (!(eps > tol & iter < maxiter)) break
@@ -95,7 +77,6 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, save_
     
     if (verbose) {
         message("Iteration: ", loglik_iter, " eps: ", eps)
-=======
   for(iter in 1:num_iter)
   {
     fun <- sin_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter,
@@ -108,7 +89,6 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels, num_iter, save_
     loglik_iter <- sin_loglik_cellcycle(cycle_data, cell_times_iter, amp_iter, phi_iter, sigma_iter, freq);
     if (verbose == TRUE) {
     cat("The loglikelihood after iter", iter, "is:", loglik_iter,"\n")
->>>>>>> 2d7a828a1fa652bc0c734bb34222020c79de450b
     }
     
     cell_times_previous <- cell_times_iter

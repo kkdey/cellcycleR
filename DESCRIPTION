@@ -1,7 +1,7 @@
 Package: cellcycleR
 Type: Package
 Title: For ordering the single cells on the cell cycle
-Version: 0.1.1
+Version: 0.1.2
 Date: 2015-11-02
 Author: c( person("Kushal", "Dey", email = "kkdey@uchicago.edu", role =
     c("aut","cre")))
