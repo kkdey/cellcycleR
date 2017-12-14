@@ -5,7 +5,7 @@
 \title{Fitting sinusoidal model}
 \usage{
 sin_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter,
-  fix.phase = FALSE, phase_in = NULL)
+  fix.phase = FALSE, phase_in = NULL, n_cores = NULL)
 }
 \arguments{
 \item{cycle_data}{a N x G matrix, where N is number of cells, G number of genes}
@@ -16,10 +16,8 @@ relative position of cells in time is known, and FALSE otherwise.}
 \item{cell_times}{a N x 1 vector of cell times (not ordered)}
 }
 \description{
-Compute sinusoidal model estimates. 
-
- @author  Kushal K Dey
-
- @export
- @examples
+Compute sinusoidal model estimates.
+}
+\author{
+Kushal K Dey
 }

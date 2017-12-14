@@ -34,7 +34,8 @@
 sin_cell_ordering_class <- function(cycle_data, celltime_levels, 
                                     num_iter = NULL, save_path=NULL,
                                     fix.phase=FALSE, phase_in=NULL, 
-                                    verbose = FALSE, tol = .01, maxiter = 500)
+                                    verbose = FALSE, tol = .01, maxiter = 500,
+                                    n_cores=NULL)
 {
   G <- dim(cycle_data)[2]
   numcells <- dim(cycle_data)[1]
@@ -56,7 +57,7 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels,
     estimates <- sin_cell_ordering_iter(cycle_data, 
                                         celltime_levels, 
                                         cell_times_previous, 
-                                        fix.phase, phase_in)
+                                        fix.phase, phase_in, n_cores)
     cell_times_iter <- estimates$cell_times_iter
     amp_iter <- estimates$amp_iter
     phi_iter <- estimates$phi_iter
@@ -80,7 +81,7 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels,
   
     for(iter in 1:num_iter) {
       fun <- sin_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter,
-                                  fix.phase, phase_in, freq);
+                                  fix.phase, phase_in, freq, n_cores);
       cell_times_iter <- fun$cell_times_iter;
       amp_iter <- fun$amp_iter;
       phi_iter <- fun$phi_iter;

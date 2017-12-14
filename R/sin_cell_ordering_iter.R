@@ -7,17 +7,17 @@
 #'
 #' @description Compute sinusoidal model estimates. 
 #'
-#'  @author  Kushal K Dey
+#' @author  Kushal K Dey
 #'
-#'  @export
-#'  @examples
+#' @export
+#' @examples
 
 sin_cell_ordering_iter <- function(cycle_data, 
                                    celltime_levels, 
                                    cell_times_iter, 
-                                   fix.phase=FALSE, phase_in=NULL)
-#sin_cell_ordering_iter <- function(cycle_data, celltime_levels, cell_times_iter,
-#                                   fix.phase=FALSE, phase_in=NULL, freq = 1)
+                                   fix.phase=FALSE, phase_in=NULL,
+				   n_cores=NULL)
+
 {
   if(fix.phase==TRUE & is.null(phase_in))
     stop("fix.phase=TRUE and phase not provided")
@@ -25,6 +25,8 @@ sin_cell_ordering_iter <- function(cycle_data,
     stop("fix.phase=FALSE and phase provided")
   if(length(unique(cell_times_iter))==1)
     stop("All the points have converged at same point on cycle");
+
+  if(n_cores==NULL) {n_cores <- parallel::detectCores()}
 
   G <- dim(cycle_data)[2]
   numcells <- dim(cycle_data)[1]
@@ -49,7 +51,7 @@ sin_cell_ordering_iter <- function(cycle_data,
                                   out_phi <- atan3(as.numeric(beta2), as.numeric(beta1));
                                   ll <- list("out_amp"=out_amp, "out_phi"=out_phi, "out_sigma"=out_sigma)
                                   return(ll)
-                                }, mc.cores=parallel::detectCores())
+                                }, n_cores)
 
     amp <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_amp))));
     phi <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_phi))));
@@ -66,7 +68,7 @@ sin_cell_ordering_iter <- function(cycle_data,
                               out_phi <- phi;
                               ll <- list("out_amp"=out_amp, "out_phi"=out_phi, "out_sigma"=out_sigma)
                               return(ll)
-                          }, mc.cores=parallel::detectCores())
+                          }, mc.cores=n_cores)
 
     amp <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_amp))));
     phi <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_phi))));

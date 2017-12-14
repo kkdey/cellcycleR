@@ -6,7 +6,7 @@
 \usage{
 sin_cell_ordering_class(cycle_data, celltime_levels, num_iter = NULL,
   save_path = NULL, fix.phase = FALSE, phase_in = NULL, verbose = FALSE,
-  tol = 0.01, maxiter = 500)
+  tol = 0.01, maxiter = 500, n_cores = NULL)
 }
 \arguments{
 \item{cycle_data}{a N x G matrix, where N is number of cells, G number of genes}
