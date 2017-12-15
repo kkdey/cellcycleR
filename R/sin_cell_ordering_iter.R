@@ -26,7 +26,7 @@ sin_cell_ordering_iter <- function(cycle_data,
   if(length(unique(cell_times_iter))==1)
     stop("All the points have converged at same point on cycle");
 
-  if(n_cores==NULL) {n_cores <- parallel::detectCores()}
+#  if(n_cores==NULL) {n_cores <- parallel::detectCores()}
 
   G <- dim(cycle_data)[2]
   numcells <- dim(cycle_data)[1]
