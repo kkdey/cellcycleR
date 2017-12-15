@@ -94,7 +94,7 @@ sin_cell_ordering_iter <- function(cycle_data,
     res_error_adjusted <- sweep(res_error_adjusted, 2, 2*sigma^2, '/');
     out <- rowSums(sweep(res_error_adjusted,2,log(sigma)) - 0.5*log(2*pi));
     return(out)
-  }, mc.cores=parallel::detectCores()));
+  }, mc.cores=n_cores));
 
 
   signal_intensity_class_exp <- do.call(rbind,lapply(1:dim(signal_intensity_per_class)[1], function(x)
