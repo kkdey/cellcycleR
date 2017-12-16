@@ -89,9 +89,9 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels,
     signal_intensity_iter <- estimates$signal_intensity_iter
     loglik_iter <- sin_loglik_cellcycle(cycle_data=cycle_data,
                                         cell_times=cell_times_iter,
-                                        amp_iter=amp_iter,
-                                        phi_iter=phi_iter,
-                                        sigma_iter=sigma_iter)
+                                        amp=amp_iter,
+                                        phi=phi_iter,
+                                        sigma=sigma_iter)
     if (verbose) message("log-likelihood:", loglik_iter)
 
     eps <- abs(loglik_iter - loglik_previous)/abs(loglik_previous)
@@ -118,9 +118,9 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels,
       signal_intensity_iter <- fun$signal_intensity_iter;
       loglik_iter <- sin_loglik_cellcycle(cycle_data=cycle_data,
                                           cell_times=cell_times_iter,
-                                          amp_iter=amp_iter,
-                                          phi_iter=phi_iter,
-                                          sigma_iter=sigma_iter,
+                                          amp=amp_iter,
+                                          phi=phi_iter,
+                                          sigma=sigma_iter,
                                           freq=freq)
       if (verbose == TRUE) {
         cat("The loglikelihood after iter", iter, "is:", loglik_iter,"\n")
