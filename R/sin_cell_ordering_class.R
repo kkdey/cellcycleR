@@ -30,14 +30,33 @@
 #'
 #' @author  Kushal K Dey, Joyce Hsiao
 #' @export
+#'
+#' @example
+# G <- 100;
+# num_cells <- 256;
+# amp_genes <- rep(10, G);
+# phi_genes <- rep(c(2,4,6,8), each=G/4);
+# sigma_genes <- rchisq(G, 0.01);
+# cell_times_sim <- seq(0,2*pi, length.out=num_cells);
+# cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes, sigma_genes, cell_times_sim);
+# celltime_levels <- 200
+# celltimes_choice <- seq(0, 2*pi, 2*pi/(celltime_levels - 1))
+# cell_times_iter <- sample(celltimes_choice, dim(cycle_data)[1], replace=TRUE)
+# fit <- sin_cell_ordering_class(cycle_data, celltime_levels,
+#                         fix.phase = FALSE, phase_in = NULL, num_iter= 20)
+
 
 sin_cell_ordering_class <- function(cycle_data, celltime_levels,
                                     num_iter = NULL, save_path=NULL,
                                     fix.phase=FALSE, phase_in=NULL,
                                     verbose = FALSE, freq = 1,
 				                            tol = .01, maxiter = 500,
-                                    n_cores=NULL)
+                                    parallel = FALSE, n_cores=NULL)
 {
+
+  if(parallel==TRUE & is.null(n_cores))
+    stop("parallel=TRUE and number of cores not provided")
+
   G <- dim(cycle_data)[2]
   numcells <- dim(cycle_data)[1]
 
@@ -58,7 +77,7 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels,
     estimates <- sin_cell_ordering_iter(cycle_data,
                                         celltime_levels,
                                         cell_times_previous, freq,
-                                        fix.phase, phase_in, n_cores)
+                                        fix.phase, phase_in, parallel, n_cores)
     cell_times_iter <- estimates$cell_times_iter
     amp_iter <- estimates$amp_iter
     phi_iter <- estimates$phi_iter
@@ -82,13 +101,14 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels,
 
     for(iter in 1:num_iter) {
       fun <- sin_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter,
-                                  fix.phase, phase_in, freq, n_cores);
+                                  fix.phase, phase_in, freq, parallel, n_cores);
       cell_times_iter <- fun$cell_times_iter;
       amp_iter <- fun$amp_iter;
       phi_iter <- fun$phi_iter;
       sigma_iter <- fun$sigma_iter;
       signal_intensity_iter <- fun$signal_intensity_iter;
-      loglik_iter <- sin_loglik_cellcycle(cycle_data, cell_times_iter, amp_iter, phi_iter, sigma_iter, freq);
+      loglik_iter <- sin_loglik_cellcycle(cycle_data, cell_times_iter,
+                                          amp_iter, phi_iter, sigma_iter, freq);
       if (verbose == TRUE) {
         cat("The loglikelihood after iter", iter, "is:", loglik_iter,"\n")
       }

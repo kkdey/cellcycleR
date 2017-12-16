@@ -10,13 +10,28 @@
 #' @author Kushal K Dey, Chiaowen Joyce Hsiao
 #'
 #' @export
+#'
+#' @example
+# G <- 100;
+# num_cells <- 256;
+# amp_genes <- rep(10, G);
+# phi_genes <- rep(c(2,4,6,8), each=G/4);
+# sigma_genes <- rchisq(G, 0.01);
+# cell_times_sim <- seq(0,2*pi, length.out=num_cells);
+# cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes, sigma_genes, cell_times_sim);
+# celltime_levels <- 200
+# celltimes_choice <- seq(0, 2*pi, 2*pi/(celltime_levels - 1))
+# cell_times_iter <- sample(celltimes_choice, dim(cycle_data)[1], replace=TRUE)
+# fit <- sin_cell_ordering_iter(cycle_data, celltime_levels,
+#                        cell_times_iter,
+#                        parallel=FALSE,
+#                        fix.phase = FALSE, phase_in=NULL)
 
 sin_cell_ordering_iter <- function(cycle_data,
                                    celltime_levels,
                                    cell_times_iter, freq=1,
                                    fix.phase=FALSE, phase_in=NULL,
-				   n_cores=NULL)
-
+                                   parallel = FALSE, n_cores=5)
 {
   if(fix.phase==TRUE & is.null(phase_in))
     stop("fix.phase=TRUE and phase not provided")
@@ -24,6 +39,9 @@ sin_cell_ordering_iter <- function(cycle_data,
     stop("fix.phase=FALSE and phase provided")
   if(length(unique(cell_times_iter))==1)
     stop("All the points have converged at same point on cycle");
+
+  if(parallel==TRUE & is.null(n_cores))
+    stop("parallel=TRUE and number of cores not provided")
 
 #  if(n_cores==NULL) {n_cores <- parallel::detectCores()}
 
@@ -49,10 +67,14 @@ sin_cell_ordering_iter <- function(cycle_data,
       out_phi <- atan3(as.numeric(beta2), as.numeric(beta1));
       ll <- list("out_amp"=out_amp, "out_phi"=out_phi, "out_sigma"=out_sigma)
       return(ll)
-
     }
 
-    fit_lm_all <- parallel::mclapply(1:G, fit_lm_notfixed_phase, mc.cores=n_cores)
+    if (parallel) {
+      fit_lm_all <- parallel::mclapply(1:G, function(g) fit_lm_notfixed_phase(g), mc.cores=n_cores)
+    }
+    if (!parallel) {
+      fit_lm_all <- lapply(1:G, function(g) fit_lm_notfixed_phase(g))
+    }
 
     amp <- as.numeric(unlist(lapply(1:G, function(g) return(fit_lm_all[[g]]$out_amp))))
     phi <- as.numeric(unlist(lapply(1:G, function(g) return(fit_lm_all[[g]]$out_phi))))
@@ -70,11 +92,17 @@ sin_cell_ordering_iter <- function(cycle_data,
       ll <- list("out_amp"=out_amp, "out_phi"=out_phi, "out_sigma"=out_sigma)
       return(ll)
     }
-    fit_lm_all <- parallel::mclapply(1:G, fit_lm_fixed_phase, mc.cores=n_cores)
 
-    amp <- as.numeric(unlist(lapply(1:G, function(g) return(fit_lm_all[[n]]$out_amp))))
-    phi <- as.numeric(unlist(lapply(1:G, function(g) return(fit_lm_all[[n]]$out_phi))))
-    sigma <- as.numeric(unlist(lapply(1:G, function(g) return(fit_lm_all[[n]]$out_sigma))))
+    if (parallel) {
+      fit_lm_all <- parallel::mclapply(1:G, function(g) fit_lm_fixed_phase(g), mc.cores=n_cores)
+    }
+    if (!parallel) {
+      fit_lm_all <- lapply(1:G, function(g) fit_lm_fixed_phase(g))
+    }
+
+    amp <- as.numeric(unlist(lapply(1:G, function(g) return(fit_lm_all[[g]]$out_amp))))
+    phi <- as.numeric(unlist(lapply(1:G, function(g) return(fit_lm_all[[g]]$out_phi))))
+    sigma <- as.numeric(unlist(lapply(1:G, function(g) return(fit_lm_all[[g]]$out_sigma))))
   }
 
 
@@ -89,14 +117,14 @@ sin_cell_ordering_iter <- function(cycle_data,
   options(digits=12)
   signal_intensity_per_class <- matrix(0, numcells, num_celltime_class)
 
-  signal_intensity_per_class <- do.call(rbind,parallel::mclapply(1:numcells, function(cell)
+  signal_intensity_per_class <- do.call(rbind, lapply(1:numcells, function(cell)
   {
     res_error <- sweep(sinu_signal,2,cycle_data[cell,]);
     res_error_adjusted <- -(res_error^2);
     res_error_adjusted <- sweep(res_error_adjusted, 2, 2*sigma^2, '/');
     out <- rowSums(sweep(res_error_adjusted,2,log(sigma)) - 0.5*log(2*pi));
     return(out)
-  }, mc.cores=n_cores));
+  }))
 
 
   signal_intensity_class_exp <- do.call(rbind,lapply(1:dim(signal_intensity_per_class)[1], function(x)
