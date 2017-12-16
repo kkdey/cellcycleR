@@ -10,7 +10,6 @@
 #' @author Kushal K Dey, Chiaowen Joyce Hsiao
 #'
 #' @export
-#' @examples
 
 sin_cell_ordering_iter <- function(cycle_data,
                                    celltime_levels,
@@ -38,41 +37,44 @@ sin_cell_ordering_iter <- function(cycle_data,
 
   if(!fix.phase){
 
-    lmfit_list <- parallel::mclapply(1:G, function(g)
-          {
-            fit <- lm(cycle_data[,g]  ~ sin(freq*cell_times_iter) + cos(freq*cell_times_iter) -1);
-            out_sigma <- sd(fit$residuals);
-            beta1 <- fit$coefficients[1];
-            beta2 <- fit$coefficients[2];
-            if(beta1==0 & beta2==0){
-                stop(paste0("You have a gene with all 0 counts at gene",g));
-            }
-            out_amp <- sqrt(beta1^2 + beta2^2);
-            out_phi <- atan3(as.numeric(beta2), as.numeric(beta1));
-            ll <- list("out_amp"=out_amp, "out_phi"=out_phi, "out_sigma"=out_sigma)
-            return(ll)
-          }, n_cores)
+    fit_lm_notfixed_phase <- function(g) {
+      fit <- lm(cycle_data[,g]  ~ sin(freq*cell_times_iter) + cos(freq*cell_times_iter) -1);
+      out_sigma <- sd(fit$residuals);
+      beta1 <- fit$coefficients[1];
+      beta2 <- fit$coefficients[2];
+      if(beta1==0 & beta2==0){
+        stop(paste0("You have a gene with all 0 counts at gene",g));
+      }
+      out_amp <- sqrt(beta1^2 + beta2^2);
+      out_phi <- atan3(as.numeric(beta2), as.numeric(beta1));
+      ll <- list("out_amp"=out_amp, "out_phi"=out_phi, "out_sigma"=out_sigma)
+      return(ll)
 
-    amp <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_amp))));
-    phi <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_phi))));
-    sigma <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_sigma))));
+    }
+
+    fit_lm_all <- parallel::mclapply(1:G, fit_lm_notfixed_phase, mc.cores=n_cores)
+
+    amp <- as.numeric(unlist(lapply(1:G, return(fit_lm_all[[n]]$out_amp))))
+    phi <- as.numeric(unlist(lapply(1:G, return(fit_lm_all[[n]]$out_phi))))
+    sigma <- as.numeric(unlist(lapply(1:G, return(fit_lm_all[[n]]$out_sigma))))
   }
 
   if(fix.phase){
-    phi <- phase_in;
-    lmfit_list <- parallel::mclapply(1:G, function(g)
-                          {
-                              fit <- lm(cycle_data[,g]  ~ sin(freq*cell_times_iter+phi[g]) -1);
-                              out_sigma <- sd(fit$residuals);
-                              out_amp <- abs(fit$coefficients[1]);
-                              out_phi <- phi;
-                              ll <- list("out_amp"=out_amp, "out_phi"=out_phi, "out_sigma"=out_sigma)
-                              return(ll)
-                          }, mc.cores=n_cores)
+    phi <- phase_in
 
-    amp <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_amp))));
-    phi <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_phi))));
-    sigma <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_sigma))));
+    fit_lm_fixed_phase <- function(g) {
+      fit <- lm(cycle_data[,g]  ~ sin(freq*cell_times_iter+phi[g]) -1);
+      out_sigma <- sd(fit$residuals);
+      out_amp <- abs(fit$coefficients[1]);
+      out_phi <- phi;
+      ll <- list("out_amp"=out_amp, "out_phi"=out_phi, "out_sigma"=out_sigma)
+      return(ll)
+    }
+    fit_lm_all <- parallel::mclapply(1:G, fit_lm_fixed_phase, mc.cores=n_cores)
+
+    amp <- as.numeric(unlist(lapply(1:G, function(n) return(fit_lm_all[[n]]$out_amp))))
+    phi <- as.numeric(unlist(lapply(1:G, function(n) return(fit_lm_all[[n]]$out_phi))))
+    sigma <- as.numeric(unlist(lapply(1:G, function(n) return(fit_lm_all[[n]]$out_sigma))))
   }
 
 
