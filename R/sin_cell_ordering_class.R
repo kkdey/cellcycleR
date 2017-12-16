@@ -117,7 +117,7 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels,
       sigma_iter <- fun$sigma_iter;
       signal_intensity_iter <- fun$signal_intensity_iter;
       loglik_iter <- sin_loglik_cellcycle(cycle_data=cycle_data,
-                                          cell_times_iter=cell_times_iter,
+                                          cell_times=cell_times_iter,
                                           amp_iter=amp_iter,
                                           phi_iter=phi_iter,
                                           sigma_iter=sigma_iter,
