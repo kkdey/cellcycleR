@@ -74,20 +74,24 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels,
   iter <- 0
 
   while (TRUE) {
-    estimates <- sin_cell_ordering_iter(cycle_data,
-                                        celltime_levels,
-                                        cell_times_previous, freq,
-                                        fix.phase, phase_in, parallel, n_cores)
+    estimates <- sin_cell_ordering_iter(cycle_data=cycle_data,
+                                        celltime_levels=,celltime_levels,
+                                        cell_times_previous=cell_times_previous,
+                                        freq=freq,
+                                        fix.phase=fix.phase,
+                                        phase_in=phase_in,
+                                        parallel=parallel,
+                                        n_cores=n_cores)
     cell_times_iter <- estimates$cell_times_iter
     amp_iter <- estimates$amp_iter
     phi_iter <- estimates$phi_iter
     sigma_iter <- estimates$sigma_iter
     signal_intensity_iter <- estimates$signal_intensity_iter
-    loglik_iter <- sin_loglik_cellcycle(cycle_data,
-                                        cell_times_iter,
-                                        amp_iter,
-                                        phi_iter,
-                                        sigma_iter)
+    loglik_iter <- sin_loglik_cellcycle(cycle_data=cycle_data,
+                                        cell_times_iter=cell_times_iter,
+                                        amp_iter=amp_iter,
+                                        phi_iter=phi_iter,
+                                        sigma_iter=sigma_iter)
     if (verbose) message("log-likelihood:", loglik_iter)
 
     eps <- abs(loglik_iter - loglik_previous)/abs(loglik_previous)
@@ -100,15 +104,24 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels,
         message("Iteration: ", loglik_iter, " eps: ", eps) }
 
     for(iter in 1:num_iter) {
-      fun <- sin_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter,
-                                  fix.phase, phase_in, freq, parallel, n_cores);
+      fun <- sin_cell_ordering_iter(cycle_data=cycle_data,
+                                    celltime_levels=celltime_levels,
+                                    cell_times_iter=cell_times_iter,
+                                    fix.phase=fix.phase,
+                                    phase_in=phase_in,
+                                    freq=freq,
+                                    parallel=parallel, n_cores=n_cores)
       cell_times_iter <- fun$cell_times_iter;
       amp_iter <- fun$amp_iter;
       phi_iter <- fun$phi_iter;
       sigma_iter <- fun$sigma_iter;
       signal_intensity_iter <- fun$signal_intensity_iter;
-      loglik_iter <- sin_loglik_cellcycle(cycle_data, cell_times_iter,
-                                          amp_iter, phi_iter, sigma_iter, freq);
+      loglik_iter <- sin_loglik_cellcycle(cycle_data=cycle_data,
+                                          cell_times_iter=cell_times_iter,
+                                          amp_iter=amp_iter,
+                                          phi_iter=phi_iter,
+                                          sigma_iter=sigma_iter,
+                                          freq=freq)
       if (verbose == TRUE) {
         cat("The loglikelihood after iter", iter, "is:", loglik_iter,"\n")
       }
