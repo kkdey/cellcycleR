@@ -12,8 +12,6 @@
 #'
 #'  @author  Kushal K Dey
 #'
-#'  @export
-#'
 #'  @examples
 #'  G <- 500;
 #'  num_cells <- 400;
@@ -24,7 +22,8 @@
 #'  cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes, sigma_genes, cell_times_sim);
 #'
 #'  loglik_cell_cycle(cycle_data, cell_times, amp_genes, phi_genes, sigma_genes)
-
+#'
+#'  @export
 sin_loglik_cellcycle <- function(cycle_data, cell_times, amp, phi, sigma, freq=1)
 {
   G <- dim(cycle_data)[2];
