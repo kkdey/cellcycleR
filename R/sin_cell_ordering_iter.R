@@ -2,19 +2,19 @@
 #'
 #' @param cycle_data a N x G matrix, where N is number of cells, G number of genes
 #' @param cell_times a N x 1 vector of cell times (not ordered)
-#' @param fix.phase TRUE if cell_times is an ordered vector, i.e., the 
+#' @param fix.phase TRUE if cell_times is an ordered vector, i.e., the
 #'                  relative position of cells in time is known, and FALSE otherwise.
 #'
-#' @description Compute sinusoidal model estimates. 
+#' @description Compute sinusoidal model estimates.
 #'
-#' @author  Kushal K Dey
+#' @author Kushal K Dey, Chiaowen Joyce Hsiao
 #'
 #' @export
 #' @examples
 
-sin_cell_ordering_iter <- function(cycle_data, 
-                                   celltime_levels, 
-                                   cell_times_iter, 
+sin_cell_ordering_iter <- function(cycle_data,
+                                   celltime_levels,
+                                   cell_times_iter, freq=1,
                                    fix.phase=FALSE, phase_in=NULL,
 				   n_cores=NULL)
 
@@ -39,19 +39,19 @@ sin_cell_ordering_iter <- function(cycle_data,
   if(!fix.phase){
 
     lmfit_list <- parallel::mclapply(1:G, function(g)
-                                {
-                                  fit <- lm(cycle_data[,g]  ~ sin(freq*cell_times_iter) + cos(freq*cell_times_iter) -1);
-                                  out_sigma <- sd(fit$residuals);
-                                  beta1 <- fit$coefficients[1];
-                                  beta2 <- fit$coefficients[2];
-                                  if(beta1==0 & beta2==0){
-                                      stop(paste0("You have a gene with all 0 counts at gene",g));
-                                  }
-                                  out_amp <- sqrt(beta1^2 + beta2^2);
-                                  out_phi <- atan3(as.numeric(beta2), as.numeric(beta1));
-                                  ll <- list("out_amp"=out_amp, "out_phi"=out_phi, "out_sigma"=out_sigma)
-                                  return(ll)
-                                }, n_cores)
+          {
+            fit <- lm(cycle_data[,g]  ~ sin(freq*cell_times_iter) + cos(freq*cell_times_iter) -1);
+            out_sigma <- sd(fit$residuals);
+            beta1 <- fit$coefficients[1];
+            beta2 <- fit$coefficients[2];
+            if(beta1==0 & beta2==0){
+                stop(paste0("You have a gene with all 0 counts at gene",g));
+            }
+            out_amp <- sqrt(beta1^2 + beta2^2);
+            out_phi <- atan3(as.numeric(beta2), as.numeric(beta1));
+            ll <- list("out_amp"=out_amp, "out_phi"=out_phi, "out_sigma"=out_sigma)
+            return(ll)
+          }, n_cores)
 
     amp <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_amp))));
     phi <- as.numeric(unlist(lapply(1:length(lmfit_list), function(n) return(lmfit_list[[n]]$out_phi))));
