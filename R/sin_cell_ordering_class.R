@@ -76,7 +76,7 @@ sin_cell_ordering_class <- function(cycle_data, celltime_levels,
   while (TRUE) {
     estimates <- sin_cell_ordering_iter(cycle_data=cycle_data,
                                         celltime_levels=,celltime_levels,
-                                        cell_times_previous=cell_times_previous,
+                                        cell_times_iter=cell_times_previous,
                                         freq=freq,
                                         fix.phase=fix.phase,
                                         phase_in=phase_in,
