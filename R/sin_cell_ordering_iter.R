@@ -54,9 +54,9 @@ sin_cell_ordering_iter <- function(cycle_data,
 
     fit_lm_all <- parallel::mclapply(1:G, fit_lm_notfixed_phase, mc.cores=n_cores)
 
-    amp <- as.numeric(unlist(lapply(1:G, return(fit_lm_all[[n]]$out_amp))))
-    phi <- as.numeric(unlist(lapply(1:G, return(fit_lm_all[[n]]$out_phi))))
-    sigma <- as.numeric(unlist(lapply(1:G, return(fit_lm_all[[n]]$out_sigma))))
+    amp <- as.numeric(unlist(lapply(1:G, function(g) return(fit_lm_all[[g]]$out_amp))))
+    phi <- as.numeric(unlist(lapply(1:G, function(g) return(fit_lm_all[[g]]$out_phi))))
+    sigma <- as.numeric(unlist(lapply(1:G, function(g) return(fit_lm_all[[g]]$out_sigma))))
   }
 
   if(fix.phase){
@@ -72,9 +72,9 @@ sin_cell_ordering_iter <- function(cycle_data,
     }
     fit_lm_all <- parallel::mclapply(1:G, fit_lm_fixed_phase, mc.cores=n_cores)
 
-    amp <- as.numeric(unlist(lapply(1:G, function(n) return(fit_lm_all[[n]]$out_amp))))
-    phi <- as.numeric(unlist(lapply(1:G, function(n) return(fit_lm_all[[n]]$out_phi))))
-    sigma <- as.numeric(unlist(lapply(1:G, function(n) return(fit_lm_all[[n]]$out_sigma))))
+    amp <- as.numeric(unlist(lapply(1:G, function(g) return(fit_lm_all[[n]]$out_amp))))
+    phi <- as.numeric(unlist(lapply(1:G, function(g) return(fit_lm_all[[n]]$out_phi))))
+    sigma <- as.numeric(unlist(lapply(1:G, function(g) return(fit_lm_all[[n]]$out_sigma))))
   }
 
 
