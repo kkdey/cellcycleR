@@ -11,22 +11,6 @@
 #'
 #' @export
 #'
-#' @example
-# G <- 100;
-# num_cells <- 256;
-# amp_genes <- rep(10, G);
-# phi_genes <- rep(c(2,4,6,8), each=G/4);
-# sigma_genes <- rchisq(G, 0.01);
-# cell_times_sim <- seq(0,2*pi, length.out=num_cells);
-# cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes, sigma_genes, cell_times_sim);
-# celltime_levels <- 200
-# celltimes_choice <- seq(0, 2*pi, 2*pi/(celltime_levels - 1))
-# cell_times_iter <- sample(celltimes_choice, dim(cycle_data)[1], replace=TRUE)
-# fit <- sin_cell_ordering_iter(cycle_data, celltime_levels,
-#                        cell_times_iter,
-#                        parallel=FALSE,
-#                        fix.phase = FALSE, phase_in=NULL)
-
 sin_cell_ordering_iter <- function(cycle_data,
                                    celltime_levels,
                                    cell_times_iter, freq=1,

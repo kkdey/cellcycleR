@@ -6,7 +6,8 @@
 \usage{
 sin_cell_ordering_class(cycle_data, celltime_levels, num_iter = NULL,
   save_path = NULL, fix.phase = FALSE, phase_in = NULL, verbose = FALSE,
-  tol = 0.01, maxiter = 500, n_cores = NULL)
+  freq = 1, tol = 0.01, maxiter = 500, parallel = FALSE,
+  n_cores = NULL)
 }
 \arguments{
 \item{cycle_data}{a N x G matrix, where N is number of cells, G number of genes}
@@ -27,9 +28,9 @@ Default is NULL as is the case if fix.phase=FALSE.}
 
 \item{verbose}{if TRUE, prints the loglikelihood at each step/iteration. If FALSE,just prints final loglikelihood.}
 
-\item{maxiter}{The maximum number of iterations. Default = 500.}
-
 \item{freq}{The frequency of the sinusoidal genes. The default is 1.}
+
+\item{maxiter}{The maximum number of iterations. Default = 500.}
 }
 \value{
 Returns a list containing the following items
@@ -41,7 +42,7 @@ Returns a list containing the following items
  \item{signal_intensity}{The intensity of each cell in each of the cell times classes}
 }
 \description{
-This function fits a sinsoidal model to gene expression data and 
+This function fits a sinsoidal model to gene expression data and
              computes cell-order estimates on cell-cycle (modulo rotation),
              as well as the gene-specific cell-cycle features, including amplitude,
              phase and noise variation.

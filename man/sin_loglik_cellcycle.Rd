@@ -25,8 +25,6 @@ Computes the loglikelihood of all the cells in the cycle under sinusoidal
 
  @author  Kushal K Dey
 
- @export
-
  @examples
  G <- 500;
  num_cells <- 400;
@@ -37,4 +35,6 @@ Computes the loglikelihood of all the cells in the cycle under sinusoidal
  cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes, sigma_genes, cell_times_sim);
 
  loglik_cell_cycle(cycle_data, cell_times, amp_genes, phi_genes, sigma_genes)
+
+ @export
 }

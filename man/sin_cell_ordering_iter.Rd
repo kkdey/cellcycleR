@@ -4,13 +4,13 @@
 \alias{sin_cell_ordering_iter}
 \title{Fitting sinusoidal model}
 \usage{
-sin_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter,
-  fix.phase = FALSE, phase_in = NULL, n_cores = NULL)
+sin_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter, freq = 1,
+  fix.phase = FALSE, phase_in = NULL, parallel = FALSE, n_cores = 5)
 }
 \arguments{
 \item{cycle_data}{a N x G matrix, where N is number of cells, G number of genes}
 
-\item{fix.phase}{TRUE if cell_times is an ordered vector, i.e., the 
+\item{fix.phase}{TRUE if cell_times is an ordered vector, i.e., the
 relative position of cells in time is known, and FALSE otherwise.}
 
 \item{cell_times}{a N x 1 vector of cell times (not ordered)}
@@ -19,5 +19,5 @@ relative position of cells in time is known, and FALSE otherwise.}
 Compute sinusoidal model estimates.
 }
 \author{
-Kushal K Dey
+Kushal K Dey, Chiaowen Joyce Hsiao
 }
