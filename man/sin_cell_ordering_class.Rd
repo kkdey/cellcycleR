@@ -4,10 +4,9 @@
 \alias{sin_cell_ordering_class}
 \title{Cell ordering into different phases on the cell cycle using sinusoidal features (genes)}
 \usage{
-sin_cell_ordering_class(cycle_data, celltime_levels, num_iter = NULL,
+sin_cell_ordering_class(cycle_data, celltime_levels, num_shuffle = NULL,
   save_path = NULL, fix.phase = FALSE, phase_in = NULL, verbose = FALSE,
-  freq = 1, tol = 0.01, maxiter = 500, parallel = FALSE,
-  n_cores = NULL)
+  freq = 1, tol = 0.001, maxiter = 500, n_cores = 1)
 }
 \arguments{
 \item{cycle_data}{a N x G matrix, where N is number of cells, G number of genes}
@@ -15,11 +14,9 @@ sin_cell_ordering_class(cycle_data, celltime_levels, num_iter = NULL,
 \item{celltime_levels}{The number of phase classes chosen (The deafult is 100). It splits up
 circle or the range (0, 2pi) into celltime_levels uniform splits.}
 
-\item{num_iter}{Number of iterations. If not specified, number of iteration
-is set to be maxiter (the maximum number of iteratoins).}
-
-\item{save_path}{The file path to save the RDA file containing the information on gene characteristics
-and the cell ordering times. Default is NULL in which case, it will not save output}
+\item{save_path}{The file path to save the RDA file containing the information on
+gene characteristics and the cell ordering times. Default is NULL in which
+case, it will not save output}
 
 \item{fix.phase}{if TRUE, the phase will be fixed in inference for the genes, default is FALSE}
 
@@ -31,6 +28,9 @@ Default is NULL as is the case if fix.phase=FALSE.}
 \item{freq}{The frequency of the sinusoidal genes. The default is 1.}
 
 \item{maxiter}{The maximum number of iterations. Default = 500.}
+
+\item{num_iter}{Number of iterations. If not specified, number of iteration
+is set to be maxiter (the maximum number of iteratoins).}
 }
 \value{
 Returns a list containing the following items
@@ -48,5 +48,5 @@ This function fits a sinsoidal model to gene expression data and
              phase and noise variation.
 }
 \author{
-Kushal K Dey, Joyce Hsiao
+Kushal K Dey, Chiaowen Joyce Hsiao
 }

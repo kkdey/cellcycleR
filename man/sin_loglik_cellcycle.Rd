@@ -2,7 +2,7 @@
 % Please edit documentation in R/sin_loglik_cellcycle.R
 \name{sin_loglik_cellcycle}
 \alias{sin_loglik_cellcycle}
-\title{Loglikelihood of of sinusoidal genes in cell cycle}
+\title{Loglikelihood of sinusoidal model}
 \usage{
 sin_loglik_cellcycle(cycle_data, cell_times, amp, phi, sigma, freq = 1)
 }
@@ -34,7 +34,7 @@ Computes the loglikelihood of all the cells in the cycle under sinusoidal
  cell_times_sim <- sample(seq(0,2*pi, 2*pi/(num_cells-1)), num_cells, replace=FALSE);
  cycle_data <- sim_sinusoidal_cycle(G, amp_genes, phi_genes, sigma_genes, cell_times_sim);
 
- loglik_cell_cycle(cycle_data, cell_times, amp_genes, phi_genes, sigma_genes)
+ sing_loglik_cellcycle(cycle_data, cell_times, amp_genes, phi_genes, sigma_genes)
 
  @export
 }
