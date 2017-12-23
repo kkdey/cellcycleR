@@ -1,0 +1,13 @@
+12/22/2017
+
+0.1.3
+
+* modify sin_cell_order_iter(): output log likelihood at each iteration
+
+* modify sin_cell_ordering_class(): change num_iter to num_shuffle. There are three constraints
+     in model convergence: number of iterations, number of times shuffle cell time labels,
+     and percent increase in log-likelihood. In each iteration, we shuffle the cell time labels
+     num_shuffle times. After each iteration, we evaluate percent increase in log-likelihood and
+     continue to iterate until percent increase in log-likelihood is smaller than specified or
+     until the number of iterations reached the default maximum.
+
