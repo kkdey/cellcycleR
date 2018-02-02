@@ -4,22 +4,32 @@
 \alias{sin_cell_ordering_iter}
 \title{Fitting sinusoidal model}
 \usage{
-sin_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter,
-  fix.phase = FALSE, phase_in = NULL)
+sin_cell_ordering_iter(cycle_data, celltime_levels, cell_times_iter, freq = 1,
+  fix.phase = FALSE, phase_in = NULL, n_cores = 1)
 }
 \arguments{
 \item{cycle_data}{a N x G matrix, where N is number of cells, G number of genes}
 
-\item{fix.phase}{TRUE if cell_times is an ordered vector, i.e., the 
+\item{celltime_levels}{single numeric value. This determines the number of time intervals
+over (0, 2/pi). In the algorithm, the cells are initially assigned to an
+arbitrarily time interval. Then, based on the amplitude and phase estimates,
+the time intervals are updated accordingly.}
+
+\item{freq}{Frequency of sinusoidal curve. Default=1, i.e., (0, 2\pi).}
+
+\item{fix.phase}{TRUE if cell_times is an ordered vector, i.e., the
 relative position of cells in time is known, and FALSE otherwise.}
 
-\item{cell_times}{a N x 1 vector of cell times (not ordered)}
+\item{phase_in}{G x 1 vector of phase values.}
+
+\item{cell_time_iter}{N x 1 vector of cell times that are set manually (need not be ordered).}
+
+\item{n_core}{Number of cores used in the computations. Default is 1: not parallelized.
+n_cores > 1 turns to parallel computing.}
 }
 \description{
-Compute sinusoidal model estimates. 
-
- @author  Kushal K Dey
-
- @export
- @examples
+Compute sinusoidal model estimates: amplitude, phase, and estimated cell times.
+}
+\author{
+Kushal K Dey, Chiaowen Joyce Hsiao
 }

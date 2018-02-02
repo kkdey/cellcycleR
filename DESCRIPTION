@@ -1,10 +1,12 @@
 Package: cellcycleR
 Type: Package
 Title: For ordering the single cells on the cell cycle
-Version: 0.1.2
-Date: 2015-11-02
-Author: c( person("Kushal", "Dey", email = "kkdey@uchicago.edu", role =
-    c("aut","cre")))
+Version: 0.1.3
+Date: 2016-12-22
+Authors@R: c(
+  person("Kushal", "Dey", email = "kkdey@uchicago.edu", role = c("aut","cre")),
+  person("Joyce", "Hsiao", email = "joyce.hsiao1@gmail.com", role = "aut"),
+  person("Matthew", "Stephens", email = "stephens999@gmail.com", role ="aut") ) 
 Maintainer: Kushal K Dey <kkdey@uchicago.edu>
 Description: From gene expression data, filters out the
     sinusoidal genes and outputs relative times of the cells on the cell cycle.
